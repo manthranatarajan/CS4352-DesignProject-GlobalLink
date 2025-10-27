@@ -19,13 +19,13 @@ export default function LoginPage() {
       <div className="relative z-10 w-full max-w-md px-6">
         {/* Logo + title top-left */}
         <div className="flex items-center gap-3 mb-8">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" className="w-12 h-12">
-            <path d="M12 36c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="#111827" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-            <path d="M20 28c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="#111827" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          </svg>
-          <div>
-            <h1 className="text-2xl font-light text-gray-900">GlobalLink</h1>
-            <div className="text-sm -mt-1 text-gray-700">Sign in</div>
+          <div class="logobox">
+            <img
+              src="/GlobalLink_Logo.svg"
+              alt="GlobalLink Logo"
+              className="w-[200px]  mb-2"
+					  />
+            <div className="logobox-text text-sm -mt-1 text-gray-700">Sign in</div>
           </div>
         </div>
 

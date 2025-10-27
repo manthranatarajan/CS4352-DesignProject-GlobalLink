@@ -23,9 +23,15 @@ export default function UserSearch() {
     <div className="us-page">
       <header className="us-header">
         <button className="us-back" onClick={() => navigate(-1)}>←</button>
-        <div className="us-logo">
-          <div className="brand">GlobalLink</div>
-          <div className="sub">User Search</div>
+        <div className="relative z-10 w-full max-w-4xl mb-8">
+           <div class="logobox">
+            <img
+              src="/GlobalLink_Logo.svg"
+              alt="GlobalLink Logo"
+              className="w-[200px]  mb-2"
+					  />
+            <div className="logobox-text text-sm -mt-1 text-gray-700">User Search</div>
+          </div>
         </div>
       </header>
 
