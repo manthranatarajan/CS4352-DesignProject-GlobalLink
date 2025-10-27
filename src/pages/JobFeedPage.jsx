@@ -34,13 +34,13 @@ export default function JobFeedPage() {
         {/* Header with Logo and Profile */}
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" className="w-12 h-12">
-              <path d="M12 36c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="#111827" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-              <path d="M20 28c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="#111827" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-            </svg>
-            <div>
-              <h1 className="text-2xl font-light text-gray-900">GlobalLink</h1>
-              <div className="text-sm -mt-1 text-gray-700">Job Feed</div>
+            <div class="logobox">
+              <img
+                src="/GlobalLink_Logo.svg"
+                alt="GlobalLink Logo"
+                className="w-[200px]  mb-2"
+              />
+              <div className="logobox-text-feed text-sm -mt-1 text-gray-700">Job Feed</div>
             </div>
           </div>
 
