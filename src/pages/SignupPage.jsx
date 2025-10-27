@@ -39,7 +39,7 @@ export default function SignupPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    alert("Form submitted! Check console for data.");
+    alert("Form submitted!");
   };
 
   // Ensure input fields aren't empty
@@ -65,11 +65,34 @@ export default function SignupPage() {
     formData.eduEndDate !== "";
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-r from-blue-50 to-indigo-50 py-12 px-6 flex flex-col items-center">
+      {/* Step Progress */}
+      <div className="w-full max-w-4xl mb-8">
+        <div className="flex justify-between items-center">
+          <div className={`flex-1 h-2 rounded-full ${step >= 1 ? "bg-blue-600" : "bg-gray-300"}`}></div>
+          <div className={`flex-1 h-2 rounded-full mx-2 ${step >= 2 ? "bg-blue-600" : "bg-gray-300"}`}></div>
+          <div className={`flex-1 h-2 rounded-full ${step >= 3 ? "bg-blue-600" : "bg-gray-300"}`}></div>
+          <div className={`flex-1 h-2 rounded-full mx-2 ${step >= 4 ? "bg-blue-600" : "bg-gray-300"}`}></div>
+          <div className={`flex-1 h-2 rounded-full ${step >= 5 ? "bg-blue-600" : "bg-gray-300"}`}></div>
+        </div>
+        <div className="flex justify-between mt-1 text-sm text-gray-600">
+          <span>Basic Info</span>
+          <span>Work</span>
+          <span>Education</span>
+          <span>Citizenship</span>
+          <span>Additional</span>
+        </div>
+      </div>
+
+      {/* Form Card */}
       <form
-        className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md"
+        className="bg-white rounded-3xl shadow-lg p-10 w-full max-w-4xl"
         onSubmit={handleSubmit}
       >
+        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+          {"Create Account"}
+        </h1>
+
         {/* Step 1: Basic Info */}
         {step === 1 && (
           <>
@@ -653,7 +676,7 @@ export default function SignupPage() {
           <>
             <h1 className="text-2xl font-bold mb-6 text-center">Review & Submit</h1>
             <p className="mb-4 text-gray-700">
-              Review your information in the console and click submit.
+              Review your information and click submit.
             </p>
             <div className="flex justify-between">
               <button
