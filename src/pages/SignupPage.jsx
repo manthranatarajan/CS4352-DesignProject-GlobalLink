@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SignupPage() {
   const [step, setStep] = useState(1);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     // Step 1: Basic Info
     firstName: "",
@@ -109,9 +111,9 @@ export default function SignupPage() {
         {/* Step 1: Basic Info */}
         {step === 1 && (
           <>
-            <h1 className="text-2xl font-bold mb-6 text-center">Basic Info</h1>
+            <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Basic Info</h1>
 
-            {/* First Name & Last Name */}
+            {/* First & Last Name */}
             <div className="grid grid-cols-2 gap-4 mb-4">
               <input
                 name="firstName"
@@ -137,36 +139,23 @@ export default function SignupPage() {
               placeholder="Username"
               value={formData.username}
               onChange={handleChange}
-              className="border p-2 rounded w-full mb-4"
+              className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 mb-4 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
               required
             />
 
             {/* City, State, Zip */}
             <div className="grid grid-cols-3 gap-4 mb-4">
-              <input
-                name="city"
-                placeholder="City"
-                value={formData.city}
-                onChange={handleChange}
-                className="border p-2 rounded w-full"
-                required
-              />
-              <input
-                name="state"
-                placeholder="State"
-                value={formData.state}
-                onChange={handleChange}
-                className="border p-2 rounded w-full"
-                required
-              />
-              <input
-                name="zip"
-                placeholder="Zip Code"
-                value={formData.zip}
-                onChange={handleChange}
-                className="border p-2 rounded w-full"
-                required
-              />
+              {["city", "state", "zip"].map((field) => (
+                <input
+                  key={field}
+                  name={field}
+                  placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                  value={formData[field]}
+                  onChange={handleChange}
+                  className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
+                  required
+                />
+              ))}
             </div>
 
             {/* Age */}
@@ -176,16 +165,24 @@ export default function SignupPage() {
               placeholder="Age"
               value={formData.age}
               onChange={handleChange}
-              className="border p-2 rounded w-full mb-6"
+              className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 mb-6 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
               required
             />
 
-            <div className="flex justify-end">
+            {/* Buttons */}
+            <div className="flex justify-between">
+              <button
+                type="button"
+                onClick={() => navigate('/login')}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-xl shadow-sm transition"
+              >
+                Back
+              </button>
               <button
                 type="button"
                 onClick={() => setStep(2)}
                 disabled={!isStep1Complete}
-                className={`bg-indigo-400 hover:bg-indigo-500 text-white px-8 py-3 rounded-full shadow-lg transition-colors ${
+                className={`bg-indigo-500 hover:bg-indigo-600 text-white px-8 py-3 rounded-xl shadow-md transition ${
                   !isStep1Complete ? "opacity-50 cursor-not-allowed" : ""
                 }`}
               >
@@ -198,66 +195,54 @@ export default function SignupPage() {
         {/* Step 2: Work Experience */}
         {step === 2 && (
           <>
-            <h1 className="text-2xl font-bold mb-6 text-center">Work Experience</h1>
+            <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Work Experience</h1>
 
-            <input
-              name="company"
-              placeholder="Company"
-              value={formData.company}
-              onChange={handleChange}
-              className="border p-2 rounded w-full mb-4"
-              required
-            />
-            <input
-              name="title"
-              placeholder="Job Title"
-              value={formData.title}
-              onChange={handleChange}
-              className="border p-2 rounded w-full mb-4"
-              required
-            />
-            <input
-              name="startDate"
-              type="date"
-              placeholder="Start Date"
-              value={formData.startDate}
-              onChange={handleChange}
-              className="border p-2 rounded w-full mb-4"
-              required
-            />
-            <input
-              name="endDate"
-              type="date"
-              placeholder="End Date"
-              value={formData.endDate}
-              onChange={handleChange}
-              className="border p-2 rounded w-full mb-4"
-              required
-            />
+            {["company", "title"].map((field) => (
+              <input
+                key={field}
+                name={field}
+                placeholder={field === "company" ? "Company" : "Job Title"}
+                value={formData[field]}
+                onChange={handleChange}
+                className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 mb-4 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
+                required
+              />
+            ))}
 
-            <div className="flex justify-between">
+            {["startDate", "endDate"].map((field) => (
+              <input
+                key={field}
+                name={field}
+                type="date"
+                placeholder={field === "startDate" ? "Start Date" : "End Date"}
+                value={formData[field]}
+                onChange={handleChange}
+                className="w-full bg-green-50 text-gray-800 rounded-xl py-4 px-6 mb-4 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
+                required
+              />
+            ))}
+
+            <div className="flex justify-between items-center mt-6">
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="bg-gray-300 px-4 py-2 rounded"
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-xl shadow-sm transition"
               >
                 Back
               </button>
-
-              <div className="flex gap-2">
+              <div className="flex gap-3">
                 <button
                   type="button"
-                  onClick={() => setStep(3)} // skip to next step
-                  className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded"
+                  onClick={() => setStep(3)}
+                  className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-xl shadow-md transition"
                 >
-                  I have no work experience
+                  No Work Experience
                 </button>
-
                 <button
                   type="button"
-                  onClick={() => setStep(3)} // next step
+                  onClick={() => setStep(3)}
                   disabled={!isStep2Complete}
-                  className={`bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded ${
+                  className={`bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl shadow-md transition ${
                     !isStep2Complete ? "opacity-50 cursor-not-allowed" : ""
                   }`}
                 >
@@ -271,66 +256,54 @@ export default function SignupPage() {
         {/* Step 3: Education */}
         {step === 3 && (
           <>
-            <h1 className="text-2xl font-bold mb-6 text-center">Education</h1>
+            <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Education</h1>
 
-            <input
-              name="university"
-              placeholder="University"
-              value={formData.university}
-              onChange={handleChange}
-              className="border p-2 rounded w-full mb-4"
-              required
-            />
-            <input
-              name="major"
-              placeholder="Major"
-              value={formData.major}
-              onChange={handleChange}
-              className="border p-2 rounded w-full mb-4"
-              required
-            />
-            <input
-              name="eduStartDate"
-              type="date"
-              placeholder="Start Date"
-              value={formData.eduStartDate}
-              onChange={handleChange}
-              className="border p-2 rounded w-full mb-4"
-              required
-            />
-            <input
-              name="eduEndDate"
-              type="date"
-              placeholder="End Date"
-              value={formData.eduEndDate}
-              onChange={handleChange}
-              className="border p-2 rounded w-full mb-4"
-              required
-            />
+            {["university", "major"].map((field) => (
+              <input
+                key={field}
+                name={field}
+                placeholder={field === "university" ? "University" : "Major"}
+                value={formData[field]}
+                onChange={handleChange}
+                className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 mb-4 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
+                required
+              />
+            ))}
 
-            <div className="flex justify-between">
+            {["eduStartDate", "eduEndDate"].map((field) => (
+              <input
+                key={field}
+                name={field}
+                type="date"
+                placeholder={field === "eduStartDate" ? "Start Date" : "End Date"}
+                value={formData[field]}
+                onChange={handleChange}
+                className="w-full bg-green-50 text-gray-800 rounded-xl py-4 px-6 mb-4 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
+                required
+              />
+            ))}
+
+            <div className="flex justify-between items-center mt-6">
               <button
                 type="button"
                 onClick={() => setStep(2)}
-                className="bg-gray-300 px-4 py-2 rounded"
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-xl shadow-sm transition"
               >
                 Back
               </button>
-
-              <div className="flex gap-2">
+              <div className="flex gap-3">
                 <button
                   type="button"
-                  onClick={() => setStep(4)} // skip to next step
-                  className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded"
+                  onClick={() => setStep(4)}
+                  className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-xl shadow-md transition"
                 >
                   Skip
                 </button>
-
                 <button
                   type="button"
-                  onClick={() => setStep(4)} // next step
+                  onClick={() => setStep(4)}
                   disabled={!isStep3Complete}
-                  className={`bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded ${
+                  className={`bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl shadow-md transition ${
                     !isStep3Complete ? "opacity-50 cursor-not-allowed" : ""
                   }`}
                 >
@@ -684,32 +657,32 @@ export default function SignupPage() {
         </>
         )}
 
-        {/* Step 6: Final / Submit */}
+        {/* Step 6: Review & Submit */}
         {step === 6 && (
           <>
-            <h1 className="text-2xl font-bold mb-6 text-center">Review & Submit</h1>
-            <p className="mb-4 text-gray-700">
-              Review your information and click submit.
+            <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Review & Submit</h1>
+            <p className="mb-6 text-gray-700 text-center">
+              Review all your information before submitting.
             </p>
-            <div className="flex justify-between">
+
+            <div className="flex justify-between mt-6">
               <button
                 type="button"
                 onClick={() => setStep(5)}
-                className="bg-gray-300 px-4 py-2 rounded"
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-xl shadow-sm transition"
               >
                 Back
               </button>
               <button
                 type="submit"
-                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+                className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl shadow-md transition"
               >
                 Submit
               </button>
             </div>
           </>
         )}
-
       </form>
-    </div>
+      </div>
   );
 }
