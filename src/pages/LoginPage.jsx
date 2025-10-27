@@ -6,8 +6,8 @@ export default function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: perform auth; for now just log
-    console.log("Proceed clicked");
+    // TODO: perform auth; for now navigate directly
+    navigate('/jobs');
   };
 
   return (
