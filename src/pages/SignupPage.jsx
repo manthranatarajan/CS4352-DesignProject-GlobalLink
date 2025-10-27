@@ -65,15 +65,31 @@ export default function SignupPage() {
     formData.eduEndDate !== "";
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-50 to-indigo-50 py-12 px-6 flex flex-col items-center">
-      {/* Step Progress */}
-      <div className="w-full max-w-4xl mb-8">
+    <div className="min-h-screen relative bg-white py-12 px-6 flex flex-col items-center">
+      {/* Background blobs */}
+      <div className="fixed -top-40 -left-40 w-[540px] h-[540px] rounded-full bg-green-100 opacity-90 filter blur-[6px]" />
+      <div className="fixed -bottom-48 -right-48 w-[540px] h-[540px] rounded-full bg-green-100 opacity-90 filter blur-[6px]" />
+
+      {/* Logo and title */}
+      <div className="relative z-10 w-full max-w-4xl mb-8">
+        <div className="flex items-center gap-3 mb-8">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" className="w-12 h-12">
+            <path d="M12 36c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="#111827" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            <path d="M20 28c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="#111827" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          </svg>
+          <div>
+            <h1 className="text-2xl font-light text-gray-900">GlobalLink</h1>
+            <div className="text-sm -mt-1 text-gray-700">Create Account</div>
+          </div>
+        </div>
+
+        {/* Step Progress */}
         <div className="flex justify-between items-center">
-          <div className={`flex-1 h-2 rounded-full ${step >= 1 ? "bg-blue-600" : "bg-gray-300"}`}></div>
-          <div className={`flex-1 h-2 rounded-full mx-2 ${step >= 2 ? "bg-blue-600" : "bg-gray-300"}`}></div>
-          <div className={`flex-1 h-2 rounded-full ${step >= 3 ? "bg-blue-600" : "bg-gray-300"}`}></div>
-          <div className={`flex-1 h-2 rounded-full mx-2 ${step >= 4 ? "bg-blue-600" : "bg-gray-300"}`}></div>
-          <div className={`flex-1 h-2 rounded-full ${step >= 5 ? "bg-blue-600" : "bg-gray-300"}`}></div>
+          <div className={`flex-1 h-2 rounded-full ${step >= 1 ? "bg-indigo-400" : "bg-gray-300"}`}></div>
+          <div className={`flex-1 h-2 rounded-full mx-2 ${step >= 2 ? "bg-indigo-400" : "bg-gray-300"}`}></div>
+          <div className={`flex-1 h-2 rounded-full ${step >= 3 ? "bg-indigo-400" : "bg-gray-300"}`}></div>
+          <div className={`flex-1 h-2 rounded-full mx-2 ${step >= 4 ? "bg-indigo-400" : "bg-gray-300"}`}></div>
+          <div className={`flex-1 h-2 rounded-full ${step >= 5 ? "bg-indigo-400" : "bg-gray-300"}`}></div>
         </div>
         <div className="flex justify-between mt-1 text-sm text-gray-600">
           <span>Basic Info</span>
@@ -86,12 +102,9 @@ export default function SignupPage() {
 
       {/* Form Card */}
       <form
-        className="bg-white rounded-3xl shadow-lg p-10 w-full max-w-4xl"
+        className="relative z-10 bg-white rounded-3xl shadow-lg p-10 w-full max-w-4xl"
         onSubmit={handleSubmit}
       >
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
-          {"Create Account"}
-        </h1>
 
         {/* Step 1: Basic Info */}
         {step === 1 && (
@@ -105,7 +118,7 @@ export default function SignupPage() {
                 placeholder="First Name"
                 value={formData.firstName}
                 onChange={handleChange}
-                className="border p-2 rounded w-full"
+                className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
                 required
               />
               <input
@@ -113,7 +126,7 @@ export default function SignupPage() {
                 placeholder="Last Name"
                 value={formData.lastName}
                 onChange={handleChange}
-                className="border p-2 rounded w-full"
+                className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
                 required
               />
             </div>
@@ -172,7 +185,7 @@ export default function SignupPage() {
                 type="button"
                 onClick={() => setStep(2)}
                 disabled={!isStep1Complete}
-                className={`bg-blue-600 hover:bg-blue-700 text-white p-2 rounded ${
+                className={`bg-indigo-400 hover:bg-indigo-500 text-white px-8 py-3 rounded-full shadow-lg transition-colors ${
                   !isStep1Complete ? "opacity-50 cursor-not-allowed" : ""
                 }`}
               >
