@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Logo from "../components/Logo";
 
 // Sample job data - in a real app, this would come from an API
 const SAMPLE_JOBS = [
@@ -34,12 +35,8 @@ export default function JobFeedPage() {
         {/* Header with Logo and Profile */}
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center gap-3">
-            <div class="logobox">
-              <img
-                src="/GlobalLink_Logo.svg"
-                alt="GlobalLink Logo"
-                className="w-[200px]  mb-2"
-              />
+            <div className="logobox">
+              <Logo className="w-[200px] mb-2" />
               <div className="logobox-text-feed text-sm -mt-1 text-gray-700">Job Feed</div>
             </div>
           </div>
