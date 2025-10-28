@@ -81,7 +81,7 @@ export default function SignupPage() {
               alt="GlobalLink Logo"
               className="w-[200px]  mb-2"
 					  />
-            <div className="logobox-text text-sm -mt-1 text-gray-700">Sign in</div>
+            <div className="logobox-text text-sm -mt-1 text-gray-700">Sign up</div>
           </div>
         </div>
 
@@ -675,7 +675,7 @@ export default function SignupPage() {
               </button>
               <button
                 type="submit"
-                onClick={() => navigate('/jobs')} // DELETE LATER
+                onClick={() => navigate('/job-preferences')}
                 className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl shadow-md transition"
               >
                 Submit

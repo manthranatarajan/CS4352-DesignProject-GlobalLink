@@ -6,6 +6,8 @@ import LoginPage from './pages/LoginPage';
 import JobFeedPage from './pages/JobFeedPage';
 import UserSearch from './pages/UserSearch';  
 import UserProfile from './pages/UserProfile'; 
+import JobPreferences from './pages/JobPreferences';  
+
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
         <Route path="/jobs" element={<JobFeedPage />} />
         <Route path="/user-search" element={<UserSearch />} />
          <Route path="/profile/:name" element={<UserProfile />} /> 
+         <Route path="/job-preferences" element={<JobPreferences />} />
       </Routes>
     </BrowserRouter>
   );
