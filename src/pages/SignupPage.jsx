@@ -173,7 +173,7 @@ export default function SignupPage() {
             <div className="flex justify-between">
               <button
                 type="button"
-                onClick={() => navigate('/login')}
+                onClick={() => navigate('/')}
                 className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-xl shadow-sm transition"
               >
                 Back
@@ -675,6 +675,7 @@ export default function SignupPage() {
               </button>
               <button
                 type="submit"
+                onClick={() => navigate('/jobs')} // DELETE LATER
                 className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl shadow-md transition"
               >
                 Submit
