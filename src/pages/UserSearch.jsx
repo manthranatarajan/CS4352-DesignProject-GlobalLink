@@ -44,10 +44,14 @@ export default function UserSearch() {
 
       <div className="us-list">
         {filtered.map((u) => (
-          <div key={u.id} className="us-card">
-            <div className="us-avatar">👤</div>
-            <div className="us-name">{u.name}</div>
-          </div>
+          <div
+  key={u.id}
+  className="us-card"
+  onClick={() => navigate(`/profile/${encodeURIComponent(u.name)}`)}
+>
+  <div className="us-avatar">👤</div>
+  <div className="us-name">{u.name}</div>
+</div>
         ))}
       </div>
     </div>
