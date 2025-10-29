@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Logo from "../components/Logo";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -19,14 +20,8 @@ export default function LoginPage() {
       <div className="relative z-10 w-full max-w-md px-6">
         {/* Logo + title top-left */}
         <div className="flex items-center gap-3 mb-8">
-          <div class="logobox">
-            <img
-              src="/GlobalLink_Logo.svg"
-              alt="GlobalLink Logo"
-              className="w-[200px]  mb-2"
-					  />
-            <div className="logobox-text text-sm -mt-1 text-gray-700">Sign in</div>
-          </div>
+          <Logo className="w-[200px] mb-2" />
+          <div className="logobox-text text-sm -mt-1 text-gray-700">Sign in</div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">

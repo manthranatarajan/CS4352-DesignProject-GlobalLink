@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./UserSearch.css";
+import Logo from "../components/Logo";
 
 const FAKE_USERS = [
   { id: 1, name: "Lee, Hyung" },
@@ -24,12 +25,8 @@ export default function UserSearch() {
       <header className="us-header">
         <button className="us-back" onClick={() => navigate(-1)}>←</button>
         <div className="relative z-10 w-full max-w-4xl mb-8">
-           <div class="logobox">
-            <img
-              src="/GlobalLink_Logo.svg"
-              alt="GlobalLink Logo"
-              className="w-[200px]  mb-2"
-					  />
+          <div className="logobox">
+            <Logo className="w-[200px] mb-2" />
             <div className="logobox-text text-sm -mt-1 text-gray-700">User Search</div>
           </div>
         </div>

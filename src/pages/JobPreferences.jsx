@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Logo from "../components/Logo";
 
 export default function JobPreferences() {
   const navigate = useNavigate();
@@ -63,11 +64,7 @@ export default function JobPreferences() {
       <div className="relative z-10 w-full max-w-4xl mb-8">
         <div className="flex items-center gap-3 mb-8">
           <div className="logobox">
-            <img
-              src="/GlobalLink_Logo.svg"
-              alt="GlobalLink Logo"
-              className="w-[200px] mb-2"
-            />
+            <Logo className="w-[200px] mb-2" />
             <div className="logobox-text-job text-sm -mt-1 text-gray-700">Job Preferences</div>
           </div>
         </div>
