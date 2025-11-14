@@ -10,6 +10,7 @@ export default function SignupPage() {
     firstName: "",
     lastName: "",
     username: "",
+    password: "",
     city: "",
     state: "",
     zip: "",
@@ -43,19 +44,32 @@ export default function SignupPage() {
     e.preventDefault();
 
     // Submit form data logic to local storage or backend
-    localStorage.setItem("current_user", formData.firstName + " " + formData.lastName);
+    localStorage.setItem("current_user", formData.username);
 
     // Store username and password
-    //localStorage.setItem(formData.firstName + " " + formData.lastName, formData.password);
+    localStorage.setItem(formData.username, formData.password);
 
-    // Store profile data
-    localStorage.setItem(
-      formData.firstName + " " + formData.lastName + "_profile",
-      JSON.stringify({
-        bio: formData.aboutMe,
-        experience: `${formData.title} at ${formData.company} (${formData.startDate} - ${formData.endDate})`
-      })
-    );
+    // Storing different profile data based on what the user entered in
+    if(!isStep2Complete) {
+      localStorage.setItem(
+        formData.username + "_profile",
+        JSON.stringify({
+          bio: formData.aboutMe,
+          experience: ""
+        })
+      );
+    }
+    else {
+      // Store profile data
+      localStorage.setItem(
+        formData.username + "_profile",
+        JSON.stringify({
+          bio: formData.aboutMe,
+          experience: `${formData.title} at ${formData.company} (${formData.startDate} - ${formData.endDate})`
+        })
+      );
+    }
+
     console.log("Form submitted:", formData);
     alert("Form submitted!");
     // Remove the on-click function in the submit button and put the navigate here
@@ -68,6 +82,7 @@ export default function SignupPage() {
     formData.firstName.trim() !== "" &&
     formData.lastName.trim() !== "" &&
     formData.username.trim() !== "" &&
+    formData.password.trim() !== "" &&
     formData.city.trim() !== "" &&
     formData.state.trim() !== "" &&
     formData.zip.trim() !== "" &&
@@ -158,6 +173,16 @@ export default function SignupPage() {
               required
             />
 
+            {/* Password */}
+            <input
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              type="password"
+              className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 mb-4 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
+              required
+            />
             {/* City, State, Zip */}
             <div className="grid grid-cols-3 gap-4 mb-4">
               {["city", "state", "zip"].map((field) => (
