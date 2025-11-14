@@ -41,8 +41,26 @@ export default function SignupPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Submit form data logic to local storage or backend
+    localStorage.setItem("current_user", formData.firstName + " " + formData.lastName);
+
+    // Store username and password
+    //localStorage.setItem(formData.firstName + " " + formData.lastName, formData.password);
+
+    // Store profile data
+    localStorage.setItem(
+      formData.firstName + " " + formData.lastName + "_profile",
+      JSON.stringify({
+        bio: formData.aboutMe,
+        experience: `${formData.title} at ${formData.company} (${formData.startDate} - ${formData.endDate})`
+      })
+    );
     console.log("Form submitted:", formData);
     alert("Form submitted!");
+    // Remove the on-click function in the submit button and put the navigate here
+    // The on-click remove the on-submit functionality
+    navigate('/job-preferences');
   };
 
   // Ensure input fields aren't empty
@@ -441,217 +459,217 @@ export default function SignupPage() {
                 >
                 Next
                 </button>
+              </div>
             </div>
-            </div>
-        </>
+          </>
         )}
 
         {/* Additional Info */}
         {step === 5 && (
-        <>
+          <>
             <h1 className="text-2xl font-bold mb-6 text-center">Additional Info</h1>
 
             {/* Profile Picture */}
             <div className="mb-4">
-            <label className="block mb-1 text-gray-700">Profile Picture</label>
-            <input
+              <label className="block mb-1 text-gray-700">Profile Picture</label>
+              <input
                 type="file"
                 accept="image/*"
                 onChange={(e) =>
-                setFormData({ ...formData, profilePicture: e.target.files[0] })
+                  setFormData({ ...formData, profilePicture: e.target.files[0] })
                 }
                 className="border p-2 rounded w-full"
-            />
+              />
             </div>
 
             {/* About Me */}
             <div className="mb-4">
-            <label className="block mb-1 text-gray-700">About Me</label>
-            <textarea
+              <label className="block mb-1 text-gray-700">About Me</label>
+              <textarea
                 name="aboutMe"
                 value={formData.aboutMe}
                 onChange={handleChange}
                 placeholder="Tell us about yourself"
                 className="border p-2 rounded w-full"
                 rows={4}
-            />
+              />
             </div>
 
             {/* Projects */}
             <div className="mb-4">
-            <label className="block mb-1 text-gray-700">Projects</label>
-            {formData.projects.map((proj, index) => (
+              <label className="block mb-1 text-gray-700">Projects</label>
+              {formData.projects.map((proj, index) => (
                 <div key={index} className="border p-2 rounded mb-2">
-                <input
+                  <input
                     name="title"
                     placeholder="Project Title"
                     value={proj.title}
                     onChange={(e) => {
-                    const newProjects = [...formData.projects];
-                    newProjects[index].title = e.target.value;
-                    setFormData({ ...formData, projects: newProjects });
+                      const newProjects = [...formData.projects];
+                      newProjects[index].title = e.target.value;
+                      setFormData({ ...formData, projects: newProjects });
                     }}
                     className="border p-1 rounded w-full mb-1"
-                />
-                <input
+                  />
+                  <input
                     name="skills"
                     placeholder="Skills Used (comma separated)"
                     value={proj.skills}
                     onChange={(e) => {
-                    const newProjects = [...formData.projects];
-                    newProjects[index].skills = e.target.value;
-                    setFormData({ ...formData, projects: newProjects });
+                      const newProjects = [...formData.projects];
+                      newProjects[index].skills = e.target.value;
+                      setFormData({ ...formData, projects: newProjects });
                     }}
                     className="border p-1 rounded w-full mb-1"
-                />
-                <textarea
+                  />
+                  <textarea
                     name="description"
                     placeholder="Project Description"
                     value={proj.description}
                     onChange={(e) => {
-                    const newProjects = [...formData.projects];
-                    newProjects[index].description = e.target.value;
-                    setFormData({ ...formData, projects: newProjects });
+                      const newProjects = [...formData.projects];
+                      newProjects[index].description = e.target.value;
+                      setFormData({ ...formData, projects: newProjects });
                     }}
                     className="border p-1 rounded w-full mb-1"
                     rows={2}
-                />
-                <button
+                  />
+                  <button
                     type="button"
                     onClick={() => {
-                    const newProjects = formData.projects.filter((_, i) => i !== index);
-                    setFormData({ ...formData, projects: newProjects });
+                      const newProjects = formData.projects.filter((_, i) => i !== index);
+                      setFormData({ ...formData, projects: newProjects });
                     }}
                     className="bg-red-500 text-white px-2 py-1 rounded"
-                >
+                  >
                     Remove Project
-                </button>
+                  </button>
                 </div>
-            ))}
-            <button
+              ))}
+              <button
                 type="button"
                 onClick={() =>
-                setFormData({
+                  setFormData({
                     ...formData,
                     projects: [...formData.projects, { title: "", skills: "", description: "" }]
-                })
+                  })
                 }
                 className="bg-green-600 text-white px-4 py-2 rounded"
-            >
+              >
                 Add Project
-            </button>
+              </button>
             </div>
 
             {/* Certifications */}
             <div className="mb-4">
-            <label className="block mb-1 text-gray-700">Certifications</label>
-            {formData.certifications.map((cert, index) => (
+              <label className="block mb-1 text-gray-700">Certifications</label>
+              {formData.certifications.map((cert, index) => (
                 <div key={index} className="border p-2 rounded mb-2">
-                <input
+                  <input
                     name="name"
                     placeholder="Certification Name"
                     value={cert.name}
                     onChange={(e) => {
-                    const newCerts = [...formData.certifications];
-                    newCerts[index].name = e.target.value;
-                    setFormData({ ...formData, certifications: newCerts });
+                      const newCerts = [...formData.certifications];
+                      newCerts[index].name = e.target.value;                        
+                      setFormData({ ...formData, certifications: newCerts });
                     }}
                     className="border p-1 rounded w-full mb-1"
-                />
-                <input
+                  />
+                  <input
                     name="issuer"
                     placeholder="Certification Issuer"
                     value={cert.issuer}
                     onChange={(e) => {
-                    const newCerts = [...formData.certifications];
-                    newCerts[index].issuer = e.target.value;
-                    setFormData({ ...formData, certifications: newCerts });
+                      const newCerts = [...formData.certifications];
+                      newCerts[index].issuer = e.target.value;
+                      setFormData({ ...formData, certifications: newCerts });
                     }}
                     className="border p-1 rounded w-full mb-1"
-                />
-                <input
+                  />
+                  <input
                     name="number"
                     placeholder="Certification Number"
                     value={cert.number}
                     onChange={(e) => {
-                    const newCerts = [...formData.certifications];
-                    newCerts[index].number = e.target.value;
-                    setFormData({ ...formData, certifications: newCerts });
+                      const newCerts = [...formData.certifications];
+                      newCerts[index].number = e.target.value;
+                      setFormData({ ...formData, certifications: newCerts });
                     }}
                     className="border p-1 rounded w-full mb-1"
-                />
-                <input
+                  />
+                  <input
                     name="earnedDate"
                     type="date"
                     placeholder="Date Earned"
                     value={cert.earnedDate}
                     onChange={(e) => {
-                    const newCerts = [...formData.certifications];
-                    newCerts[index].earnedDate = e.target.value;
-                    setFormData({ ...formData, certifications: newCerts });
+                      const newCerts = [...formData.certifications];
+                      newCerts[index].earnedDate = e.target.value;
+                      setFormData({ ...formData, certifications: newCerts });
                     }}
                     className="border p-1 rounded w-full mb-1"
-                />
-                <input
+                  />
+                  <input
                     name="expiryDate"
                     type="date"
                     placeholder="Expiry Date"
                     value={cert.expiryDate}
                     onChange={(e) => {
-                    const newCerts = [...formData.certifications];
-                    newCerts[index].expiryDate = e.target.value;
-                    setFormData({ ...formData, certifications: newCerts });
+                      const newCerts = [...formData.certifications];
+                      newCerts[index].expiryDate = e.target.value;
+                      setFormData({ ...formData, certifications: newCerts });
                     }}
                     className="border p-1 rounded w-full mb-1"
-                />
-                <button
+                  />
+                  <button
                     type="button"
                     onClick={() => {
-                    const newCerts = formData.certifications.filter((_, i) => i !== index);
-                    setFormData({ ...formData, certifications: newCerts });
+                      const newCerts = formData.certifications.filter((_, i) => i !== index);
+                      setFormData({ ...formData, certifications: newCerts });
                     }}
                     className="bg-red-500 text-white px-2 py-1 rounded"
-                >
+                  >
                     Remove Certification
-                </button>
+                  </button>
                 </div>
-            ))}
-            <button
+              ))}
+              <button
                 type="button"
                 onClick={() =>
-                setFormData({
+                  setFormData({
                     ...formData,
                     certifications: [
-                    ...formData.certifications,
-                    { name: "", issuer: "", number: "", earnedDate: "", expiryDate: "" }
+                      ...formData.certifications,
+                      { name: "", issuer: "", number: "", earnedDate: "", expiryDate: "" }
                     ]
-                })
+                  })
                 }
                 className="bg-green-600 text-white px-4 py-2 rounded"
-            >
+              >
                 Add Certification
-            </button>
+              </button>
             </div>
 
             {/* Navigation Buttons */}
             <div className="flex justify-between mt-4">
-            <button
+              <button
                 type="button"
                 onClick={() => setStep(4)}
                 className="bg-gray-300 px-4 py-2 rounded"
-            >
+              >
                 Back
-            </button>
+              </button>
 
-            <button
+              <button
                 type="button"
                 onClick={() => setStep(6)} // next step
                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
-            >
+              >
                 Next
-            </button>
+              </button>
             </div>
-        </>
+          </>
         )}
 
         {/* Step 6: Review & Submit */}
@@ -672,7 +690,6 @@ export default function SignupPage() {
               </button>
               <button
                 type="submit"
-                onClick={() => navigate('/job-preferences')}
                 className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl shadow-md transition"
               >
                 Submit
@@ -681,6 +698,6 @@ export default function SignupPage() {
           </>
         )}
       </form>
-      </div>
+    </div>
   );
 }

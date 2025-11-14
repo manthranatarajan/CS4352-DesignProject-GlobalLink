@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: perform auth; for now navigate directly
-    navigate('/jobs');
+    
+    // Perform Login Logic
+    if(username !== "" && password !== ""){
+      if(localStorage.getItem(username) === password){
+        // Current user set in Local Storage
+        localStorage.setItem("current_user", username);
+        navigate('/jobs');
+      } else {
+        alert("Invalid username or password");
+      }
+    }
   };
 
   return (
@@ -30,6 +41,8 @@ export default function LoginPage() {
               name="username"
               placeholder="Username"
               className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
@@ -39,6 +52,8 @@ export default function LoginPage() {
               type="password"
               placeholder="Password"
               className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <div className="text-right mt-2">
               <button type="button" className="text-sm text-gray-600 hover:underline">forgot password?</button>

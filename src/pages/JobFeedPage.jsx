@@ -82,13 +82,16 @@ export default function JobFeedPage() {
           <button className="flex-1 bg-indigo-400 hover:bg-indigo-500 text-white py-4 rounded-full text-lg shadow-lg transition-colors">
             Feed
           </button>
-           <button
-    onClick={() => navigate("/user-search")}
-    className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-4 rounded-full text-lg shadow-lg transition-colors"
-  >
+          <button
+            onClick={() => navigate("/user-search")}
+            className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-4 rounded-full text-lg shadow-lg transition-colors"
+          >
             Search
           </button>
-          <button className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-4 rounded-full text-lg shadow-lg transition-colors">
+          <button
+            onClick={() => navigate("/current-user-profile")}
+            className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-4 rounded-full text-lg shadow-lg transition-colors"
+          >
             Profile
           </button>
         </div>
