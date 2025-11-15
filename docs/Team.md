@@ -28,9 +28,14 @@ Team Members
      - Demonstrated the completed application in a walkthrough video showcasing the 3 tasks
 
 
-3. <Member Name> (GitHub: `<handle>`)
+3. Nicolas Hartono (GitHub: `WhizpyH`)
    - UI contributions:
-     - 
+     - Implemented `CurrentUserProfile.jsx`
+     - Updated `App.js` to implement backend storage and dummy profiles
+     - Updated `LoginPage.jsx` to include a user login storage system
+     - Updated `SignUp.jsx` to include a user sign in storage system
+     - Contributed to the DP4 progress report
+     - Turn the `docs/ReadMe.md`, `docs/Source.md`, and `docs/Source.md` to a pdfs 
 
 4. <Member Name> (GitHub: `<handle>`)
    - UI contributions:
