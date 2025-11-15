@@ -15,6 +15,16 @@ export default function UserProfile() {
         {/* Back button */}
         <button className="back-btn" onClick={() => navigate(-1)}>←</button>
 
+        {/* Sign out button*/}
+        <button className="sign-out-btn" onClick={() => {
+            // Perform Sign Out Logic
+            localStorage.setItem("current_user", "");
+            navigate('/');
+          }
+        }>
+          Sign Out
+        </button>
+
         {/* Avatar */}
         <div className="avatar"></div>
 
