@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./UserProfile.css";
 
@@ -7,6 +7,7 @@ export default function UserProfile() {
   const { name } = useParams();
   const decodedName = decodeURIComponent(name);
   const raw = localStorage.getItem(decodedName) || localStorage.getItem(decodedName + "_profile");
+  const [isPending, setIsPending] = useState(false);
   let profile = null;
   try {
     profile = raw ? JSON.parse(raw) : null;
@@ -31,10 +32,28 @@ export default function UserProfile() {
         {/* Name */}
         <h2 className="user-name">{decodeURIComponent(name)}</h2>
 
-        {/* Add Friend button */}
-        <button className="add-btn">Add Friend?</button>
+        {/* Age, City, State */}
+        {profile && (
+          <p className="user-location">
+            {profile.age ? `${profile.age} years old` : ""}
+            {profile.city || profile.state ? " • " : ""}
+            {profile.city ? profile.city : ""}
+            {profile.city && profile.state ? ", " : ""}
+            {profile.state ? profile.state : ""}
+          </p>
+        )}
 
-        {/* Sections */}
+        {/* Add Friend button */}
+        <button
+          className={`add-btn px-4 py-2 rounded-xl font-medium transition 
+            ${isPending ? "bg-blue-500 text-white cursor-default" : "bg-gray-200 hover:bg-gray-300"}`}
+          onClick={() => setIsPending(true)}
+          disabled={isPending}
+        >
+          {isPending ? "Pending..." : "Add Friend?"}
+        </button>
+
+        {/* Bio/About Me */}
         <div className="section">
           <h3>Bio/About Me</h3>
           <div className="box">
@@ -42,14 +61,82 @@ export default function UserProfile() {
           </div>
         </div>
 
+        {/* Past Experience */}
         <div className="section">
           <h3>Past Experience</h3>
           <div className="box">
-            {profile && profile.experience
-              ? profile.experience
-              : profile && profile.title && profile.company
-              ? `${profile.title} at ${profile.company} (${profile.startDate || ''} - ${profile.endDate || ''})`
-              : "No experience listed."}
+            {profile && (profile.company || profile.experience) ? (
+              <div>
+                {profile.title && <strong>{profile.title}</strong>}
+                {profile.company && <> at {profile.company}</>}
+                <br />
+                {(profile.startDate || profile.endDate) && (
+                  <span>
+                    {profile.startDate} – {profile.endDate || "Present"}
+                  </span>
+                )}
+              </div>
+            ) : (
+              "No experience listed."
+            )}
+          </div>
+        </div>
+        {/* Education */}
+        <div className="section">
+          <h3>Education</h3>
+          <div className="box">
+            {profile && profile.university ? (
+              <div>
+                <strong>{profile.university}</strong>
+                <br />
+                {profile.major && <span>Major: {profile.major}</span>}
+                <br />
+                {(profile.eduStartDate || profile.eduEndDate) && (
+                  <span>
+                    {profile.eduStartDate} – {profile.eduEndDate || "Present"}
+                  </span>
+                )}
+              </div>
+            ) : (
+              "No education listed."
+            )}
+          </div>
+        </div>
+        {/* Certificates */}
+        <div className="section">
+          <h3>Certificates</h3>
+          <div className="box">
+            {profile && profile.certifications && profile.certifications.length > 0 ? (
+              profile.certifications.map((cert, i) => (
+                <div key={i} className="certificate-item">
+                  <strong>{cert.name}</strong> — {cert.issuer}
+                  <br />
+                  Earned: {cert.earnedDate || "N/A"}
+                  {cert.expiryDate && <> • Expires: {cert.expiryDate}</>}
+                  <hr />
+                </div>
+              ))
+            ) : (
+              "No certificates listed."
+            )}
+          </div>
+        </div>
+        {/* Projects */}
+        <div className="section">
+          <h3>Projects</h3>
+          <div className="box">
+            {profile && profile.projects && profile.projects.length > 0 ? (
+              profile.projects.map((proj, i) => (
+                <div key={i} className="project-item">
+                  <strong>{proj.title}</strong>
+                  {proj.skills && <p className="skills">Skills: {proj.skills}</p>}
+                  {proj.description && <p className="description">{proj.description}</p>}
+                  <hr />
+                </div>
+              ))
+            ) : (
+              "No projects listed."
+            )}
           </div>
         </div>
       </div>
