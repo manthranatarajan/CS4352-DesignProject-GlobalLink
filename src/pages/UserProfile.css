@@ -50,6 +50,20 @@
   cursor: pointer;
 }
 
+/* Sign out button */
+.sign-out-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #ef4444; /* red-500 */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
 /* Avatar */
 .avatar {
   width: 100px;
