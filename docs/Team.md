@@ -35,7 +35,7 @@ Team Members
      - Updated `LoginPage.jsx` to include a user login storage system
      - Updated `SignUp.jsx` to include a user sign in storage system
      - Contributed to the DP4 progress report
-     - Turn the `docs/ReadMe.md`, `docs/Source.md`, and `docs/Source.md` to a pdfs 
+     - Turn the `docs/ReadMe.md`, `docs/Source.md`, and `docs/Source.md` to pdfs 
 
 4. <Member Name> (GitHub: `<handle>`)
    - UI contributions:
