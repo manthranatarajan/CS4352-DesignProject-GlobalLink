@@ -5,6 +5,15 @@ import "./UserProfile.css";
 export default function UserProfile() {
   const navigate = useNavigate();
   const { name } = useParams();
+  const decodedName = decodeURIComponent(name);
+  const raw = localStorage.getItem(decodedName) || localStorage.getItem(decodedName + "_profile");
+  let profile = null;
+  try {
+    profile = raw ? JSON.parse(raw) : null;
+  } catch (err) {
+    console.warn('Failed to parse profile for', decodedName, err);
+    profile = null;
+  }
 
   return (
     <div className="profile-page">
@@ -29,14 +38,18 @@ export default function UserProfile() {
         <div className="section">
           <h3>Bio/About Me</h3>
           <div className="box">
-            {JSON.parse(localStorage.getItem(decodeURIComponent(name))).bio}
+            {profile && profile.aboutMe ? profile.aboutMe : profile && profile.bio ? profile.bio : "No bio available."}
           </div>
         </div>
 
         <div className="section">
           <h3>Past Experience</h3>
           <div className="box">
-            {JSON.parse(localStorage.getItem(decodeURIComponent(name))).experience}
+            {profile && profile.experience
+              ? profile.experience
+              : profile && profile.title && profile.company
+              ? `${profile.title} at ${profile.company} (${profile.startDate || ''} - ${profile.endDate || ''})`
+              : "No experience listed."}
           </div>
         </div>
       </div>

@@ -1,22 +1,65 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./UserSearch.css";
 import Logo from "../components/Logo";
 
-const FAKE_USERS = [
-  { id: 1, name: "Lee, Hyung" },
-  { id: 2, name: "Amina Johnson" },
-  { id: 3, name: "Carlos Perez" },
-  { id: 4, name: "Sara Kim" },
-  { id: 5, name: "Mohammed Ali" },
-  { id: 6, name: "Tony Smith" }
-];
-
 export default function UserSearch() {
   const [query, setQuery] = useState("");
+  const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
-  const filtered = FAKE_USERS.filter((u) =>
+  // Load users from public/users.json and localStorage profiles
+  useEffect(() => {
+    let mounted = true;
+
+    // Fetch users.json from public
+    fetch('/users.json')
+      .then((res) => res.ok ? res.json() : [])
+      .then((json) => {
+        if (!mounted) return;
+        const fileUsers = Array.isArray(json) ? json.map((u, i) => ({ id: u.id ?? i, name: u.name })) : [];
+
+        // Read localStorage keys that end with _profile and derive user names
+        const localProfiles = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && key.endsWith('_profile')) {
+            const name = key.replace(/_profile$/, '');
+            // assign a negative id to local entries to avoid collisions
+            localProfiles.push({ id: `local-${i}`, name });
+          }
+        }
+
+        // Merge and dedupe by name (case-insensitive)
+        const merged = [...fileUsers, ...localProfiles];
+        const deduped = [];
+        const seen = new Set();
+        for (const u of merged) {
+          const keyName = u.name.trim().toLowerCase();
+          if (!seen.has(keyName)) {
+            seen.add(keyName);
+            deduped.push(u);
+          }
+        }
+        setUsers(deduped);
+      })
+      .catch(() => {
+        // fallback: if fetch fails, try to derive from localStorage only
+        const localProfiles = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && key.endsWith('_profile')) {
+            const name = key.replace(/_profile$/, '');
+            localProfiles.push({ id: `local-${i}`, name });
+          }
+        }
+        setUsers(localProfiles);
+      });
+
+    return () => { mounted = false; };
+  }, []);
+
+  const filtered = users.filter((u) =>
     u.name.toLowerCase().includes(query.toLowerCase())
   );
 

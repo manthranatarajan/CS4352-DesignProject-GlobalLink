@@ -10,7 +10,6 @@ export default function SignupPage() {
     firstName: "",
     lastName: "",
     username: "",
-    password: "",
     city: "",
     state: "",
     zip: "",
@@ -49,25 +48,43 @@ export default function SignupPage() {
     // Store username and password
     localStorage.setItem(formData.username, formData.password);
 
-    // Storing different profile data based on what the user entered in
-    if(!isStep2Complete) {
-      localStorage.setItem(
-        formData.username + "_profile",
-        JSON.stringify({
-          bio: formData.aboutMe,
-          experience: ""
-        })
-      );
-    }
-    else {
-      // Store profile data
-      localStorage.setItem(
-        formData.username + "_profile",
-        JSON.stringify({
-          bio: formData.aboutMe,
-          experience: `${formData.title} at ${formData.company} (${formData.startDate} - ${formData.endDate})`
-        })
-      );
+    // Build a full profile object from the form data
+    const profile = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      username: formData.username,
+      city: formData.city,
+      state: formData.state,
+      zip: formData.zip,
+      age: formData.age,
+      // work
+      company: formData.company,
+      title: formData.title,
+      startDate: formData.startDate,
+      endDate: formData.endDate,
+      // education
+      university: formData.university,
+      major: formData.major,
+      eduStartDate: formData.eduStartDate,
+      eduEndDate: formData.eduEndDate,
+      // citizenship
+      country: formData.country,
+      visaType: formData.visaType,
+      seekingWorkAuth: formData.seekingWorkAuth,
+      // additional
+      aboutMe: formData.aboutMe,
+      projects: formData.projects,
+      certifications: formData.certifications,
+      // profile picture (store filename if available)
+      profilePictureName: formData.profilePicture ? formData.profilePicture.name : null
+    };
+
+    // Save profile under username_profile so the search picks it up, and also under the username key for UserProfile compatibility
+    try {
+      localStorage.setItem(formData.username + "_profile", JSON.stringify(profile));
+      localStorage.setItem(formData.username, JSON.stringify(profile));
+    } catch (err) {
+      console.warn('Failed to save profile to localStorage', err);
     }
 
     console.log("Form submitted:", formData);
@@ -79,24 +96,24 @@ export default function SignupPage() {
 
   // Ensure input fields aren't empty
   const isStep1Complete =
-    formData.firstName.trim() !== "" &&
-    formData.lastName.trim() !== "" &&
-    formData.username.trim() !== "" &&
-    formData.password.trim() !== "" &&
-    formData.city.trim() !== "" &&
-    formData.state.trim() !== "" &&
-    formData.zip.trim() !== "" &&
+    (formData.firstName || "").trim() !== "" &&
+    (formData.lastName || "").trim() !== "" &&
+    (formData.username || "").trim() !== "" &&
+    (formData.password || "").trim() !== "" &&
+    (formData.city || "").trim() !== "" &&
+    (formData.state || "").trim() !== "" &&
+    (formData.zip || "").trim() !== "" &&
     formData.age !== "";
 
   const isStep2Complete =
-    formData.company.trim() !== "" &&
-    formData.title.trim() !== "" &&
+    (formData.company || "").trim() !== "" &&
+    (formData.title || "").trim() !== "" &&
     formData.startDate !== "" &&
     formData.endDate !== "";
 
   const isStep3Complete =
-    formData.university.trim() !== "" &&
-    formData.major.trim() !== "" &&
+    (formData.university || "").trim() !== "" &&
+    (formData.major || "").trim() !== "" &&
     formData.eduStartDate !== "" &&
     formData.eduEndDate !== "";
 
