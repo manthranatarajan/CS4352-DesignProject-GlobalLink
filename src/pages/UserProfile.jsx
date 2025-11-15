@@ -128,6 +128,12 @@ export default function UserProfile() {
     { label: 'About / Bio', key: () => profile && (profile.aboutMe || profile.bio) ? (profile.aboutMe || profile.bio) : null },
     { label: 'Projects', key: () => profile && profile.projects ? profile.projects.map(p => p.title || p).join(' | ') : null },
     { label: 'Certifications', key: () => profile && profile.certifications ? profile.certifications.map(c => c.name || c).join(' | ') : null }
+    ,{ label: 'Looking For', key: () => profile && profile.jobPreferences && profile.jobPreferences.lookingFor ? profile.jobPreferences.lookingFor : null },
+    { label: 'Desired Roles', key: () => profile && profile.jobPreferences && profile.jobPreferences.desiredRoles ? profile.jobPreferences.desiredRoles : null },
+    { label: 'Desired Locations', key: () => profile && profile.jobPreferences && profile.jobPreferences.desiredLocations ? profile.jobPreferences.desiredLocations : null },
+    { label: 'Desired Industry', key: () => profile && profile.jobPreferences && profile.jobPreferences.desiredIndustry ? profile.jobPreferences.desiredIndustry : null },
+    { label: 'Require Sponsorship', key: () => profile && profile.jobPreferences && typeof profile.jobPreferences.requireSponsorship !== 'undefined' ? profile.jobPreferences.requireSponsorship : null },
+    { label: 'Followed Employers', key: () => profile && profile.followedEmployers ? profile.followedEmployers : null }
   ];
 
   return (
@@ -179,6 +185,18 @@ export default function UserProfile() {
               <div className="row"><div className="label">Country</div><div className="value">{safeDisplay(fields[12].key())}</div></div>
               <div className="row"><div className="label">Visa Type</div><div className="value">{safeDisplay(fields[13].key())}</div></div>
               <div className="row"><div className="label">Seeking Work Authorization</div><div className="value">{safeDisplay(fields[14].key())}</div></div>
+            </div>
+          </div>
+
+          <div className="card">
+            <div className="card-title">Job Preferences</div>
+            <div className="card-body">
+              <div className="row"><div className="label">Looking For</div><div className="value">{safeDisplay(fields[18].key())}</div></div>
+              <div className="row"><div className="label">Desired Roles</div><div className="value">{safeDisplay(fields[19].key())}</div></div>
+              <div className="row"><div className="label">Desired Locations</div><div className="value">{safeDisplay(fields[20].key())}</div></div>
+              <div className="row"><div className="label">Desired Industry</div><div className="value">{safeDisplay(fields[21].key())}</div></div>
+              <div className="row"><div className="label">Require Sponsorship</div><div className="value">{safeDisplay(fields[22].key())}</div></div>
+              <div className="row"><div className="label">Followed Employers</div><div className="value">{safeDisplay(fields[23].key())}</div></div>
             </div>
           </div>
 

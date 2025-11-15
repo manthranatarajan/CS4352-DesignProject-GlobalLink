@@ -51,6 +51,29 @@ export default function JobPreferences() {
   const handleContinue = () => {
     console.log("Preferences:", preferences);
     console.log("Followed Employers:", followedEmployers);
+
+    // Persist preferences into the current user's profile in localStorage
+    try {
+      const current = localStorage.getItem('current_user');
+      if (current) {
+        const key = current + '_profile';
+        const raw = localStorage.getItem(key) || localStorage.getItem(current);
+        let profile = {};
+        if (raw) {
+          try { profile = JSON.parse(raw); } catch (e) { profile = {}; }
+        }
+
+        profile.jobPreferences = preferences;
+        profile.followedEmployers = Object.keys(followedEmployers).filter(k => followedEmployers[k]);
+
+        localStorage.setItem(key, JSON.stringify(profile));
+        // keep username key in sync (some code reads either key)
+        try { localStorage.setItem(current, JSON.stringify(profile)); } catch (e) {}
+      }
+    } catch (err) {
+      console.warn('Failed to save job preferences', err);
+    }
+
     navigate('/jobs');
   };
 
