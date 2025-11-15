@@ -136,7 +136,7 @@ export default function UserProfile() {
       <div className="bg-circle bottom-right"></div>
 
       <div className="profile-content">
-        <button className="back-btn" onClick={() => navigate(-1)}>←</button>
+        <button className="back-btn" onClick={() => navigate('/jobs')}>←</button>
 
         <div className="avatar" aria-hidden="true">{ /* could render image if profile.profilePictureName exists */ }</div>
 
