@@ -12,7 +12,7 @@ export default function LoginPage() {
     
     // Perform Login Logic
     if(username !== "" && password !== ""){
-      if(localStorage.getItem(username) === password){
+      if (localStorage.getItem(username + "_password") === password) {
         // Current user set in Local Storage
         localStorage.setItem("current_user", username);
         navigate('/jobs');
