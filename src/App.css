@@ -78,3 +78,16 @@
 .blob-animation {
   animation: floatingblobs 6s ease-in-out infinite;
 }
+
+/* Sign-out button variant for Job Feed header to avoid overlap */
+.sign-out-btn-feed {
+  position: static !important;
+  margin-left: 8px;
+  background: #ef4444; /* red */
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}

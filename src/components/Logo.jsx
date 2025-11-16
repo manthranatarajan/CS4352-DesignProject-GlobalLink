@@ -6,8 +6,10 @@ export default function Logo({ className = 'w-32', ariaLabel = 'GlobalLink Logo'
   const navigate = useNavigate();
   const isHome = location.pathname === '/';
 
+  // Use PUBLIC_URL so the logo path works whether the app is hosted at root or a subpath
+  const publicUrl = process.env.PUBLIC_URL || '';
   const img = (
-    <img src="/GlobalLink_Logo.svg" alt={ariaLabel} className={className} />
+    <img src={`${publicUrl}/GlobalLink_Logo.svg`} alt={ariaLabel} className={className} />
   );
 
   if (isHome) return img;
