@@ -13,8 +13,10 @@ export default function LoginPage() {
     // Perform Login Logic
     if(username !== "" && password !== ""){
       if (localStorage.getItem(username + "_password") === password) {
+        const fullName = localStorage.getItem(username + "_full_name");
+
         // Current user set in Local Storage
-        localStorage.setItem("current_user", username);
+        localStorage.setItem("current_user", fullName);
         navigate('/jobs');
       } else {
         alert("Invalid username or password");
