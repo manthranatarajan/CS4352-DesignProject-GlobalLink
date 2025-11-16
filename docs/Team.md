@@ -37,8 +37,15 @@ Team Members
      - Contributed to the DP4 progress report
      - Turn the `docs/ReadMe.md`, `docs/Source.md`, and `docs/Source.md` to pdfs 
 
-4. <Member Name> (GitHub: `<handle>`)
+4. Yaqub Ahmed (GitHub: `yaqubahm`)
    - UI contributions:
+      - Created the logo of the app
+      - Implemented the job preferences page `JobPrefrences.jsx`
+      - Created the job preferences tagging/labels system for job feed `JobFeedPage.jsx` 
+      - Created 30 random fake job data to feed into the job feed `JobFeedPage.jsx`
+      - Implemented transition/ambient animations on various pages 
+      - Fixed bugs with logging in and logging out
+      - Contributed to DP4
 
 
 5. <Member Name> (GitHub: `<handle>`)
