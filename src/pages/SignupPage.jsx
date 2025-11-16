@@ -122,8 +122,8 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen relative bg-white py-12 px-6 flex flex-col items-center">
       {/* Background blobs */}
-      <div className="fixed -top-40 -left-40 w-[540px] h-[540px] rounded-full bg-green-100 opacity-90 filter blur-[6px]" />
-      <div className="fixed -bottom-48 -right-48 w-[540px] h-[540px] rounded-full bg-green-100 opacity-90 filter blur-[6px]" />
+      <div className="fixed -top-40 -left-40 w-[700px] h-[700px] rounded-full bg-green-100 opacity-90 filter blur-[6px] blob-animation" />
+      <div className="fixed -bottom-48 -right-48 w-[700px] h-[700px] rounded-full bg-green-100 opacity-90 filter blur-[6px] blob-animation" />
 
       {/* Logo and title */}
       <div className="relative z-10 w-full max-w-4xl mb-8">

@@ -7,8 +7,8 @@ export default function WelcomePage() {
 	return (
 		<div className="min-h-screen relative bg-white flex items-center justify-center overflow-hidden">
 			{/* soft green blobs in the background */}
-			<div className="absolute -top-56 -left-56 w-[520px] h-[520px] rounded-full bg-green-100 opacity-90 filter blur-[6px]" />
-			<div className="absolute -bottom-56 -right-56 w-[520px] h-[520px] rounded-full bg-green-100 opacity-90 filter blur-[6px]" />
+			<div className="absolute -top-56 -left-56 w-[700px] h-[700px] rounded-full bg-green-100 opacity-90 filter blur-[6px] blob-animation" />
+			<div className="absolute -bottom-56 -right-56 w-[700px] h-[700px] rounded-full bg-green-100 opacity-90 filter blur-[6px] blob-animation" />
 
 			<div className="relative z-10 w-full max-w-sm text-center px-6">
 				{/* Logo / Title */}

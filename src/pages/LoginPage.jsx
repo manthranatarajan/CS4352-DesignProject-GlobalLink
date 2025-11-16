@@ -27,8 +27,8 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen relative bg-white flex items-start justify-center overflow-hidden py-12">
       {/* background blobs */}
-      <div className="absolute -top-40 -left-40 w-[540px] h-[540px] rounded-full bg-green-100 opacity-90 filter blur-[6px]" />
-      <div className="absolute -bottom-48 -right-48 w-[540px] h-[540px] rounded-full bg-green-100 opacity-90 filter blur-[6px]" />
+      <div className="absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full bg-green-100 opacity-90 filter blur-[6px] blob-animation" />
+      <div className="absolute -bottom-48 -right-48 w-[700px] h-[700px] rounded-full bg-green-100 opacity-90 filter blur-[6px] blob-animation" />
 
       <div className="relative z-10 w-full max-w-md px-6">
         {/* Logo + title top-left */}
