@@ -1,34 +1,44 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
+import { jobs } from "../jobs";
 
-// Sample job data - in a real app, this would come from an API
-const SAMPLE_JOBS = [
-  {
-    company: "AMAZON INC.",
-    title: "Shelf Stocker",
-    applyUrl: "www.stock.amazon.com/texas-apply-stock"
-  },
-  {
-    company: "SEVEN ELEVEN",
-    title: "Front-End Developer",
-    applyUrl: "www.sevenelevenco.com/apply-frontend-dev-international"
-  },
-  {
-    company: "WALMART INC.",
-    title: "Cashier",
-    applyUrl: "www.walmart.com/apply-cashier"
-  }
-];
+// changed the jobs to a seperate file, called jobs.js
+const jobList = jobs;
 
 export default function JobFeedPage() {
   const navigate = useNavigate();
 
+  // to make the following badge work.
+  const currentUser = localStorage.getItem("current_user");
+
+  let profile = {};
+  if (currentUser) {
+    try {
+      const raw =
+        localStorage.getItem(currentUser + "_profile") ||
+        localStorage.getItem(currentUser);
+      profile = raw ? JSON.parse(raw) : {};
+    } catch (err) {
+      profile = {};
+    }
+  }
+
+  const followedEmployers = profile.followedEmployers || [];
+  const prefs = profile.jobPreferences || {};
+
+  const requireSponsorshipPref = typeof prefs.requireSponsorship === "boolean" ? prefs.requireSponsorship: null;
+
+  const desiredRoles = (prefs.desiredRoles || []).map(r => r.toLowerCase());
+  const desiredLocations = (prefs.desiredLocations || []).map(l => l.toLowerCase());
+  const desiredIndustries = (prefs.desiredIndustry || []).map(i => i.toLowerCase());
+
+
   return (
     <div className="min-h-screen relative bg-white">
       {/* Background blobs */}
-      <div className="absolute -top-40 -left-40 w-[540px] h-[540px] rounded-full bg-green-100 opacity-90 filter blur-[6px]" />
-      <div className="absolute -bottom-48 -right-48 w-[540px] h-[540px] rounded-full bg-green-100 opacity-90 filter blur-[6px]" />
+      <div className="absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full bg-green-100 opacity-90 filter blur-[6px] blob-animation" />
+      <div className="absolute -bottom-48 -right-48 w-[700px] h-[700px] rounded-full bg-green-100 opacity-90 filter blur-[6px] blob-animation" />
 
       {/* Content container */}
       <div className="relative z-10 px-6 py-8">
@@ -50,28 +60,79 @@ export default function JobFeedPage() {
         </div>
 
         {/* Job Cards */}
-        <div className="space-y-4 mb-24">
-          {SAMPLE_JOBS.map((job, index) => (
-            <div key={index} className="bg-white rounded-3xl p-6 shadow-lg">
-              <div className="text-sm text-gray-500 mb-1">{job.company}</div>
-              <div className="flex justify-between items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-24">
+          {jobs.map((job) => (
+            <div key={job.id} className="bg-white rounded-3xl p-6 shadow-lg max-w-2xl mx-auto w-full job-card">
+              <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+                <span>{job.company}</span>
+
+                {/* follwing badge*/}
+                  {followedEmployers
+                    .map(e => e.toLowerCase())
+                    .includes(job.company.toLowerCase()) && (
+                      <span className="px-2 py-1 rounded-full text-xs font-semibold bg-green-200 text-green-800">
+                        FOLLOWING
+                      </span>
+                  )}
+
+                  {/* location badge */}
+                  {desiredLocations.includes(job.location.toLowerCase()) && (
+                    <span className="px-2 py-1 rounded-full text-xs font-semibold bg-blue-200 text-blue-800">
+                      Desired Location!
+                    </span>
+                  )}
+
+                  {/* indstuy badge */}
+                  {desiredIndustries.includes(job.industry.toLowerCase()) && (
+                    <span className="px-2 py-1 rounded-full text-xs font-semibold bg-purple-200 text-purple-800">
+                      Desired Industry
+                    </span>
+                  )}
+
+                  {/* role badge */}
+                  {desiredRoles.includes(job.role.toLowerCase()) && (
+                    <span className="px-2 py-1 rounded-full text-xs font-semibold bg-yellow-200 text-yellow-800">
+                      Desired Role
+                    </span>
+                  )}
+
+                  {/* sponsorship match */}
+                  {requireSponsorshipPref === job.requiresSponsorship && (
+                    <span className="px-2 py-1 rounded-full text-xs font-semibold bg-red-200 text-red-800">
+                      Sponsorship Match
+                    </span>
+                  )}
+
+              </div>
+              <div className="flex justify-between items-center gap-6">
+              <div className="flex flex-col gap-1 flex-1">
                 <h2 className="text-xl font-semibold text-gray-900">{job.title}</h2>
-                <button 
-                  onClick={() => window.open(`https://${job.applyUrl}`, '_blank')}
-                  className="bg-indigo-400 hover:bg-indigo-500 text-white px-8 py-2 rounded-full text-sm shadow-md transition-colors"
-                >
-                  APPLY
-                </button>
+                <div className="text-sm text-gray-600 mt-2 font-medium">
+                  {job.location} • {job.industry} • {job.positionType}
+              </div>
+
+              <div className="text-sm text-gray-500">
+                Sponsorship: {job.requiresSponsorship ? "Yes" : "No"}
               </div>
               <div className="mt-2">
                 <a 
-                  href={`https://${job.applyUrl}`} 
+                  href={job.url}
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-sm text-gray-500 hover:underline"
                 >
-                  {job.applyUrl}
+                  {job.url}
                 </a>
+              </div>
+
+                </div>
+                <button 
+                  onClick={() => window.open(job.url, "_blank")}
+                  className="bg-indigo-400 hover:bg-indigo-500 text-white px-8 py-2 rounded-full text-sm shadow-md transition-colors"
+                >
+                  APPLY
+                
+                </button>
               </div>
             </div>
           ))}
