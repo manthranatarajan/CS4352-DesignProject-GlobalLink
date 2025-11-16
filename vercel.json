@@ -9,6 +9,9 @@
     { "src": "/favicon.ico", "dest": "/favicon.ico" },
     { "src": "/manifest.json", "dest": "/manifest.json" },
     { "src": "/robots.txt", "dest": "/robots.txt" },
+    { "src": "/GlobalLink_Logo.svg", "dest": "/GlobalLink_Logo.svg" },
+    { "src": "/logo192.png", "dest": "/logo192.png" },
+    { "src": "/logo512.png", "dest": "/logo512.png" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
