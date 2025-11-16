@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./UserProfile.css";
 
-export default function UserProfile() {
+export default function CurrentUserProfile() {
   const navigate = useNavigate();
   const { name } = useParams();
   const decodedName = decodeURIComponent(name);

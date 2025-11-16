@@ -46,7 +46,7 @@ export default function SignupPage() {
     localStorage.setItem("current_user", formData.username);
 
     // Store username and password
-    localStorage.setItem(formData.username, formData.password);
+    localStorage.setItem(formData.username + "_password", formData.password);
 
     // Build a full profile object from the form data
     const profile = {
@@ -82,7 +82,6 @@ export default function SignupPage() {
     // Save profile under username_profile so the search picks it up, and also under the username key for UserProfile compatibility
     try {
       localStorage.setItem(formData.username + "_profile", JSON.stringify(profile));
-      localStorage.setItem(formData.username, JSON.stringify(profile));
     } catch (err) {
       console.warn('Failed to save profile to localStorage', err);
     }

@@ -2,6 +2,19 @@ import React, {useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./UserProfile.css";
 
+function empty(value) {
+  if (value === null || value === undefined || value === "") return true;
+  if (Array.isArray(value) && value.length === 0) return true;
+  return false;
+}
+
+function safeDisplay(value) {
+  if (empty(value)) return "Not filled out";
+  if (typeof value === "boolean") return value ? "Yes" : "No";
+  if (Array.isArray(value)) return value.length ? value.join(", ") : "Not filled out";
+  return String(value);
+}
+
 export default function UserProfile() {
   const navigate = useNavigate();
   const { name } = useParams();
@@ -18,19 +31,15 @@ export default function UserProfile() {
 
   return (
     <div className="profile-page">
-      {/* Green blurred background like JobFeedPage */}
       <div className="bg-circle top-left"></div>
       <div className="bg-circle bottom-right"></div>
 
       <div className="profile-content">
-        {/* Back button */}
-        <button className="back-btn" onClick={() => navigate(-1)}>←</button>
+        <button className="back-btn" onClick={() => navigate('/jobs')}>←</button>
 
-        {/* Avatar */}
-        <div className="avatar"></div>
+        <div className="avatar" aria-hidden="true">{ /* could render image if profile.profilePictureName exists */ }</div>
 
-        {/* Name */}
-        <h2 className="user-name">{decodeURIComponent(name)}</h2>
+        <h2 className="user-name">{displayName || 'Unknown'}</h2>
 
         {/* Age, City, State */}
         {profile && (
@@ -59,7 +68,6 @@ export default function UserProfile() {
           <div className="box">
             {profile && profile.aboutMe ? profile.aboutMe : profile && profile.bio ? profile.bio : "No bio available."}
           </div>
-        </div>
 
         {/* Past Experience */}
         <div className="section">
@@ -139,6 +147,7 @@ export default function UserProfile() {
             )}
           </div>
         </div>
+
       </div>
     </div>
   );
