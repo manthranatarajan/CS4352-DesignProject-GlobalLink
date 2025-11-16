@@ -43,7 +43,10 @@ export default function SignupPage() {
     e.preventDefault();
 
     // Submit form data logic to local storage or backend
-    localStorage.setItem("current_user", formData.username);
+    localStorage.setItem("current_user", formData.firstName + " " + formData.lastName);
+
+    // Set username to connect with full name
+    localStorage.setItem(formData.username + "_full_name", formData.firstName + " " + formData.lastName);
 
     // Store username and password
     localStorage.setItem(formData.username + "_password", formData.password);
@@ -81,7 +84,7 @@ export default function SignupPage() {
 
     // Save profile under username_profile so the search picks it up, and also under the username key for UserProfile compatibility
     try {
-      localStorage.setItem(formData.username + "_profile", JSON.stringify(profile));
+      localStorage.setItem(formData.firstName + " " + formData.lastName + "_profile", JSON.stringify(profile));
     } catch (err) {
       console.warn('Failed to save profile to localStorage', err);
     }
