@@ -6,11 +6,15 @@ export default function JobPreferences() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   
+  const ROLE_OPTIONS = ["Software Engineer", "Data Analyst", "Web Developer", "Cybersecurity", "Product Manager"];
+  const LOCATION_OPTIONS = ["Dallas", "Plano", "Frisco", "Allen", "Richardson"];
+  const INDUSTRY_OPTIONS = ["Virtual Reality", "WebDev", "Backend", "Retail", "Marketing"]; 
+  
   const [preferences, setPreferences] = useState({
     lookingFor: "",
-    desiredRoles: "",
-    desiredLocations: "",
-    desiredIndustry: "",
+    desiredRoles: [],
+    desiredLocations: [],
+    desiredIndustry: [],
     requireSponsorship: false
   });
 
@@ -20,7 +24,10 @@ export default function JobPreferences() {
     { name: "Seven-Eleven" },
     { name: "Meta" },
     { name: "Costco" },
-    { name: "Microsoft" }
+    { name: "Valve" },
+    { name: "Microsoft" },
+    { name: "HCI INC." },
+    { name: "The Commuters" }
   ]);
 
   const [followedEmployers, setFollowedEmployers] = useState(
@@ -44,15 +51,48 @@ export default function JobPreferences() {
 
   const isStep1Complete = 
   preferences.lookingFor.trim() !== "" &&
-  preferences.desiredRoles.trim() !== "" &&
-  preferences.desiredLocations.trim() !== "" &&
-  preferences.desiredIndustry.trim() !== "";
+  preferences.desiredRoles.length > 0 &&
+  preferences.desiredLocations.length > 0 &&
+  preferences.desiredIndustry.length > 0;
 
   const handleContinue = () => {
     console.log("Preferences:", preferences);
     console.log("Followed Employers:", followedEmployers);
+
+    // Persist preferences into the current user's profile in localStorage
+    try {
+      const current = localStorage.getItem('current_user');
+      if (current) {
+        const key = current + '_profile';
+        const raw = localStorage.getItem(key) || localStorage.getItem(current);
+        let profile = {};
+        if (raw) {
+          try { profile = JSON.parse(raw); } catch (e) { profile = {}; }
+        }
+
+        profile.jobPreferences = preferences;
+        profile.followedEmployers = Object.keys(followedEmployers).filter(k => followedEmployers[k]);
+
+        localStorage.setItem(key, JSON.stringify(profile));
+        // keep username key in sync (some code reads either key)
+        try { localStorage.setItem(current, JSON.stringify(profile)); } catch (e) {}
+      }
+    } catch (err) {
+      console.warn('Failed to save job preferences', err);
+    }
+
     navigate('/jobs');
   };
+
+const togglePill = (category, value) => {
+  setPreferences((prev) => {
+    const arr = prev[category];
+    const exists = arr.includes(value);
+    const updated = exists ? arr.filter((v) => v !== value) : [...arr, value];
+    return { ...prev, [category]: updated };
+  });
+};
+
 
   return (
     <div className="min-h-screen relative bg-white py-12 px-6 flex flex-col items-center">
@@ -108,37 +148,64 @@ export default function JobPreferences() {
             {/* Desired roles */}
             <div className="mb-6">
               <label className="block mb-2 text-gray-700 font-medium">Desired Role(s)</label>
-              <input
-                name="desiredRoles"
-                placeholder="e.g., Software Engineer, Data Analyst"
-                value={preferences.desiredRoles}
-                onChange={handlePreferenceChange}
-                className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
-              />
+              <div className="flex flex-wrap gap-2">
+                {ROLE_OPTIONS.map(role => (
+                  <button
+                    key={role}
+                    type="button"
+                    onClick={() => togglePill("desiredRoles", role)}
+                    className={`px-4 py-2 rounded-full text-sm border transition ${
+                      preferences.desiredRoles.includes(role)
+                        ? "bg-indigo-500 text-white border-indigo-500"
+                        : "bg-green-50 text-gray-700 border-gray-300"
+                    }`}
+                  >
+                    {role}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Desired locations */}
             <div className="mb-6">
               <label className="block mb-2 text-gray-700 font-medium">Desired Location(s)</label>
-              <input
-                name="desiredLocations"
-                placeholder="e.g., New York, Remote, California"
-                value={preferences.desiredLocations}
-                onChange={handlePreferenceChange}
-                className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
-              />
+              <div className="flex flex-wrap gap-2">
+                {LOCATION_OPTIONS.map(loc => (
+                  <button
+                    key={loc}
+                    type="button"
+                    onClick={() => togglePill("desiredLocations", loc)}
+                    className={`px-4 py-2 rounded-full text-sm border transition ${
+                      preferences.desiredLocations.includes(loc)
+                        ? "bg-indigo-500 text-white border-indigo-500"
+                        : "bg-green-50 text-gray-700 border-gray-300"
+                    }`}
+                  >
+                    {loc}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Desired industry */}
             <div className="mb-6">
               <label className="block mb-2 text-gray-700 font-medium">Desired Industry</label>
-              <input
-                name="desiredIndustry"
-                placeholder="e.g., Technology, Healthcare, Finance"
-                value={preferences.desiredIndustry}
-                onChange={handlePreferenceChange}
-                className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
-              />
+              <div className="flex flex-wrap gap-2">
+                {INDUSTRY_OPTIONS.map(ind => (
+                  <button
+                    key={ind}
+                    type="button"
+                    onClick={() => togglePill("desiredIndustry", ind)}
+                    className={`px-4 py-2 rounded-full text-sm border transition ${
+                      preferences.desiredIndustry.includes(ind)
+                        ? "bg-indigo-500 text-white border-indigo-500"
+                        : "bg-green-50 text-gray-700 border-gray-300"
+                    }`}
+                  >
+                    {ind}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Require sponsership? (yes/no) */}
