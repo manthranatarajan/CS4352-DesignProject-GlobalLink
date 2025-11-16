@@ -11,6 +11,8 @@ This repository contains a React-based UI prototype for a user/job search experi
 - User Search that merges `public/users.json` and profiles saved in `localStorage`
 - User Profile viewer for individual profiles
 
+Link to slides: https://docs.google.com/presentation/d/1eyNfiNLj4KXTATDvMAOqwrifAJmeqRJQINtEUfKzjsg/edit?usp=sharing
+
 Quick start (requirements)
 --------------------------
 - OS: Windows (instructions below use PowerShell)
@@ -38,6 +40,8 @@ The app seeds several mock users in `localStorage` for testing. Use these exampl
 - Username: `Alice Land` — Password: `56`
 - Username: `Bob Stark` — Password: `78`
 - Username: `Charlie Brown` — Password: `90`
+
+However, it is best if you create your own profile first, then log in with your data.
 
 Notes about credentials and profiles
 -----------------------------------
@@ -69,5 +73,3 @@ Limitations and known issues
 - Persistence: `localStorage` is used for demo only. Data is stored in the user's browser and will be lost if cleared.
 - Security: Passwords are stored in plaintext (legacy behavior). This is not secure — do not use in production.
 - Key inconsistency: The project currently mixes storing credentials and profiles under the same `username` key in some places; this can cause confusion.
-
-END OF README

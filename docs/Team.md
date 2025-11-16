@@ -15,6 +15,7 @@ Team Members
      - Implemented `welcomePage.jsx`
      - Implemented `JobFeedPage.jsx`
      - Implemented `LoginPage.jsx`
+     - Added all fields of create account and job reccomendation data into localstorage (mockbackend/JSON structure) and populated all the fields on user profile and user search profiles on cardviews.
      - Implemented `UserSearch.jsx`, wired to `public/users.json` and localStorage `_profile` entries; added deduplication and search filtering logic.
      - Implemented `UserProfile.jsx` to read and display profiles from localStorage and support both legacy and new storage keys.
      - Wrote documentation in `docs/ReadMe.md` and `docs/Source.md` and created this team document.
@@ -48,7 +49,8 @@ Team Members
       - Contributed to DP4
 
 
-5. <Member Name> (GitHub: `<handle>`)
+5. <Eslam> (GitHub: `<handle>`)
    - UI contributions:
+      - Implemented `UserSearch.tsx`
 
 (End of Team document)
