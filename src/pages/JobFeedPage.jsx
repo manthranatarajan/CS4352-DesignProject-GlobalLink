@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 import { jobs } from "../jobs";
 
-// changed the jobs to a seperate file, called jobs.js
-const jobList = jobs;
+// changed the jobs to a separate file, called jobs.js
 
 export default function JobFeedPage() {
   const navigate = useNavigate();
