@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
+import SignOutButton from "../components/SignOutButton";
 import { jobs } from "../jobs";
 
 // changed the jobs to a separate file, called jobs.js
@@ -51,11 +52,14 @@ export default function JobFeedPage() {
           </div>
 
           {/* Profile Icon */}
-          <button className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+          <div className="flex items-center gap-3">
+            <button className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-6 h-6 text-gray-600">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
-          </button>
+            </button>
+            <SignOutButton className="sign-out-btn" />
+          </div>
         </div>
 
         {/* Job Cards */}

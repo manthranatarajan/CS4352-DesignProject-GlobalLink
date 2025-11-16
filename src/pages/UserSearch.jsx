@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./UserSearch.css";
 import Logo from "../components/Logo";
+import SignOutButton from "../components/SignOutButton";
 
 export default function UserSearch() {
   const [query, setQuery] = useState("");
@@ -73,6 +74,7 @@ export default function UserSearch() {
             <div className="logobox-text text-sm -mt-1 text-gray-700">User Search</div>
           </div>
         </div>
+        <SignOutButton className="sign-out-btn" />
       </header>
 
       <input

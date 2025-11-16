@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
+import SignOutButton from "../components/SignOutButton";
 
 export default function JobPreferences() {
   const navigate = useNavigate();
@@ -108,6 +109,8 @@ const togglePill = (category, value) => {
             <div className="logobox-text-job text-sm -mt-1 text-gray-700">Job Preferences</div>
           </div>
         </div>
+
+        <SignOutButton className="sign-out-btn" />
 
         {/* Step Progress */}
         <div className="flex justify-between items-center">

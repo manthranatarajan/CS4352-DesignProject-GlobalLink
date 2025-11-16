@@ -20,7 +20,7 @@ Team Members
      - Implemented `UserProfile.jsx` to read and display profiles from localStorage and support both legacy and new storage keys.
      - Wrote documentation in `docs/ReadMe.md` and `docs/Source.md` and created this team document.
 
-2. <Mikael Sagarwala> (GitHub: `<MikaelSag>`)
+2. Mikael Sagarwala (GitHub: `<MikaelSag>`)
    - UI contributions:
      - Implemented `SignupPage.jsx`
      - Updated `UserProfile.jsx` to display more user information and added more reactivity to the adding a friend feature
@@ -52,5 +52,3 @@ Team Members
 5. <Eslam> (GitHub: `<handle>`)
    - UI contributions:
       - Implemented `UserSearch.tsx`
-
-(End of Team document)

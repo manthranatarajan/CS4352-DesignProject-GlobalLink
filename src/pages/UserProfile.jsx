@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import "./UserProfile.css";
+import SignOutButton from "../components/SignOutButton";
 
 function empty(value) {
   if (value === null || value === undefined || value === "") return true;
@@ -182,6 +183,7 @@ export default function UserProfile() {
         <div className="avatar" aria-hidden="true">{ /* could render image if profile.profilePictureName exists */ }</div>
 
         <h2 className="user-name">{displayName || 'Unknown'}</h2>
+        <SignOutButton className="sign-out-btn" />
         {/* Add Friend button - show when viewing someone else's profile */}
         {friendStatus !== 'self' && localStorage.getItem('current_user') && (
           <div style={{ marginTop: 8 }}>
