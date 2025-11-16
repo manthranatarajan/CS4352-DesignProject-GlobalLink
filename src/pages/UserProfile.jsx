@@ -21,6 +21,7 @@ export default function UserProfile() {
   const location = useLocation();
   const [profile, setProfile] = useState(null);
   const [displayName, setDisplayName] = useState("");
+  const [friendStatus, setFriendStatus] = useState("idle"); // idle | pending | self
 
   // Determine which username to show: param > query/current_user
   const resolveName = () => {
@@ -108,6 +109,40 @@ export default function UserProfile() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name, location.pathname]);
 
+  // Track friend request status for the displayed user
+  useEffect(() => {
+    const current = localStorage.getItem('current_user');
+    if (!displayName) return;
+    if (!current || current === displayName) {
+      setFriendStatus('self');
+      return;
+    }
+
+    const key = `${displayName}_pending_requests`;
+    const raw = localStorage.getItem(key);
+    try {
+      const arr = raw ? JSON.parse(raw) : [];
+      if (Array.isArray(arr) && arr.includes(current)) setFriendStatus('pending');
+      else setFriendStatus('idle');
+    } catch (err) {
+      setFriendStatus('idle');
+    }
+  }, [displayName, profile]);
+
+  const sendFriendRequest = () => {
+    const current = localStorage.getItem('current_user');
+    if (!current || current === displayName) return;
+    const key = `${displayName}_pending_requests`;
+    let arr = [];
+    try { arr = JSON.parse(localStorage.getItem(key)) || []; } catch (e) { arr = []; }
+    if (!Array.isArray(arr)) arr = [];
+    if (!arr.includes(current)) {
+      arr.push(current);
+      try { localStorage.setItem(key, JSON.stringify(arr)); } catch (e) { console.warn('Failed to save pending request', e); }
+    }
+    setFriendStatus('pending');
+  };
+
   // Render a consistent field list with fallbacks
   const fields = [
     { label: 'Full name', key: () => (profile && (profile.firstName || profile.lastName)) ? [(profile.firstName || ''), (profile.lastName || '')].join(' ').trim() : profile && profile.username ? profile.username : null },
@@ -147,6 +182,19 @@ export default function UserProfile() {
         <div className="avatar" aria-hidden="true">{ /* could render image if profile.profilePictureName exists */ }</div>
 
         <h2 className="user-name">{displayName || 'Unknown'}</h2>
+        {/* Add Friend button - show when viewing someone else's profile */}
+        {friendStatus !== 'self' && localStorage.getItem('current_user') && (
+          <div style={{ marginTop: 8 }}>
+            <button
+              className="add-btn"
+              onClick={sendFriendRequest}
+              disabled={friendStatus === 'pending'}
+              aria-pressed={friendStatus === 'pending'}
+            >
+              {friendStatus === 'pending' ? 'Pending...' : 'Add Friend'}
+            </button>
+          </div>
+        )}
 
         <div className="cards-container">
           <div className="card">
