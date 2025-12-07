@@ -5,6 +5,9 @@ import Logo from "../components/Logo";
 export default function SignupPage() {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
+  const today = new Date().toISOString().split("T")[0];
+  const [isCurrentlyEnrolled, setIsCurrentlyEnrolled] = useState(false);
+  const [isCurrentlyEmployed, setIsCurrentlyEmployed] = useState(false);
   const [formData, setFormData] = useState({
     // Step 1: Basic Info
     firstName: "",
@@ -166,7 +169,7 @@ export default function SignupPage() {
             <div className="grid grid-cols-2 gap-4 mb-4">
               <input
                 name="firstName"
-                placeholder="First Name"
+                placeholder="* First Name"
                 value={formData.firstName}
                 onChange={handleChange}
                 className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
@@ -174,7 +177,7 @@ export default function SignupPage() {
               />
               <input
                 name="lastName"
-                placeholder="Last Name"
+                placeholder="* Last Name"
                 value={formData.lastName}
                 onChange={handleChange}
                 className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
@@ -185,7 +188,7 @@ export default function SignupPage() {
             {/* Username */}
             <input
               name="username"
-              placeholder="Username"
+              placeholder="* Username"
               value={formData.username}
               onChange={handleChange}
               className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 mb-4 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
@@ -195,33 +198,46 @@ export default function SignupPage() {
             {/* Password */}
             <input
               name="password"
-              placeholder="Password"
+              placeholder="* Password"
               value={formData.password}
               onChange={handleChange}
               type="password"
               className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 mb-4 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
               required
             />
-            {/* City, State, Zip */}
             <div className="grid grid-cols-3 gap-4 mb-4">
-              {["city", "state", "zip"].map((field) => (
-                <input
-                  key={field}
-                  name={field}
-                  placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                  value={formData[field]}
-                  onChange={handleChange}
-                  className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
-                  required
-                />
-              ))}
-            </div>
+
+            <input
+              name="city"
+              placeholder="* City"
+              value={formData.city}
+              onChange={handleChange}
+              className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
+              required
+            />
+            <input
+              name="state"
+              placeholder="* State"
+              value={formData.state}
+              onChange={handleChange}
+              className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
+              required
+            />
+            <input
+              name="zip"
+              placeholder="* Zip"
+              value={formData.zip}
+              onChange={handleChange}
+              className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
+              required
+            />
+          </div>
 
             {/* Age */}
             <input
               name="age"
               type="number"
-              placeholder="Age"
+              placeholder="* Age"
               value={formData.age}
               onChange={handleChange}
               className="w-full bg-green-50 placeholder-gray-400 text-gray-800 rounded-xl py-4 px-6 mb-6 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
@@ -268,18 +284,45 @@ export default function SignupPage() {
               />
             ))}
 
-            {["startDate", "endDate"].map((field) => (
+            <input
+              name="startDate"
+              type="date"
+              placeholder="Start Date"
+              value={formData.startDate}
+              onChange={handleChange}
+              max={today} 
+              className="w-full bg-green-50 text-gray-800 rounded-xl py-4 px-6 mb-4 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
+              required
+            />
+
+            <input
+              name="endDate"
+              type="date"
+              placeholder="End Date"
+              value={isCurrentlyEmployed ? today : formData.endDate}
+              onChange={handleChange}
+              max={today}
+              disabled={isCurrentlyEmployed}
+              className="w-full bg-green-50 text-gray-800 rounded-xl py-4 px-6 mb-2 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none disabled:opacity-50"
+              required={!isCurrentlyEmployed}
+            />
+
+            <div className="flex items-center gap-2 mb-4">
               <input
-                key={field}
-                name={field}
-                type="date"
-                placeholder={field === "startDate" ? "Start Date" : "End Date"}
-                value={formData[field]}
-                onChange={handleChange}
-                className="w-full bg-green-50 text-gray-800 rounded-xl py-4 px-6 mb-4 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
-                required
+                type="checkbox"
+                checked={isCurrentlyEmployed}
+                onChange={(e) => {
+                  setIsCurrentlyEmployed(e.target.checked);
+
+                  if (e.target.checked) {
+                    setFormData({ ...formData, endDate: today });
+                  } else {
+                    setFormData({ ...formData, endDate: "" });
+                  }
+                }}
               />
-            ))}
+              <label className="text-gray-700">I currently work here</label>
+            </div>
 
             <div className="flex justify-between items-center mt-6">
               <button
@@ -329,18 +372,45 @@ export default function SignupPage() {
               />
             ))}
 
-            {["eduStartDate", "eduEndDate"].map((field) => (
+            <input
+              name="eduStartDate"
+              type="date"
+              placeholder="Start Date"
+              value={formData.eduStartDate}
+              onChange={handleChange}
+              max={today}
+              className="w-full bg-green-50 text-gray-800 rounded-xl py-4 px-6 mb-4 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
+              required
+            />
+
+            <input
+              name="eduEndDate"
+              type="date"
+              placeholder="End Date"
+              value={isCurrentlyEnrolled ? today : formData.eduEndDate}
+              onChange={handleChange}
+              max={today}
+              disabled={isCurrentlyEnrolled}
+              className="w-full bg-green-50 text-gray-800 rounded-xl py-4 px-6 mb-2 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none disabled:opacity-50"
+              required={!isCurrentlyEnrolled}
+            />
+
+            <div className="flex items-center gap-2 mb-4">
               <input
-                key={field}
-                name={field}
-                type="date"
-                placeholder={field === "eduStartDate" ? "Start Date" : "End Date"}
-                value={formData[field]}
-                onChange={handleChange}
-                className="w-full bg-green-50 text-gray-800 rounded-xl py-4 px-6 mb-4 shadow-[0_10px_15px_-6px_rgba(0,0,0,0.12)] border border-transparent focus:outline-none"
-                required
+                type="checkbox"
+                checked={isCurrentlyEnrolled}
+                onChange={(e) => {
+                  setIsCurrentlyEnrolled(e.target.checked);
+
+                  if (e.target.checked) {
+                    setFormData({ ...formData, eduEndDate: today });
+                  } else {
+                    setFormData({ ...formData, eduEndDate: "" });
+                  }
+                }}
               />
-            ))}
+              <label className="text-gray-700">I am currently enrolled</label>
+            </div>
 
             <div className="flex justify-between items-center mt-6">
               <button
@@ -381,7 +451,7 @@ export default function SignupPage() {
             {/* Country of origin */}
             <input
             name="country"
-            placeholder="Country of Origin"
+            placeholder="* Country of Origin"
             value={formData.country}
             onChange={handleChange}
             className="border p-2 rounded w-full mb-4"
