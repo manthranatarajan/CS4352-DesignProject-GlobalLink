@@ -8,7 +8,7 @@ export const jobs = [
     industry: "VirtualReality",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://hciinc.com/jobs/vr-software-engineer"
+    url: "https://www.indeed.com/q-virtual-reality-software-engineer-jobs.htmlr"
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ export const jobs = [
     industry: "VirtualReality",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://hciinc.com/jobs/3d-designer"
+    url: "https://www.indeed.com/q-virtual-reality-software-engineer-jobs.html?vjk=9dc37ccf56c4fe62"
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ export const jobs = [
     industry: "VirtualReality",
     positionType: "Internship",
     requiresSponsorship: true,
-    url: "https://careers.valve.com/vr-intern"
+    url: "https://www.valvesoftware.com/en/?job_cat=hardware"
   },
   {
     id: 4,
@@ -41,7 +41,7 @@ export const jobs = [
     industry: "VirtualReality",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://meta.com/careers/ar-vr-content"
+    url: "https://www.metacareers.com/jobsearch"
   },
   {
     id: 5,
@@ -52,30 +52,30 @@ export const jobs = [
     industry: "VirtualReality",
     positionType: "Part-time",
     requiresSponsorship: false,
-    url: "https://amazon.jobs/vr-qa"
+    url: "https://www.metacareers.com/jobsearch"
   },
 
   {
     id: 6,
-    title: "Frontend Web Developer for GlobalLink",
-    company: "The Commuters",
+    title: "Frontend Web Developer",
+    company: "Amazon",
     role: "Frontend Developer",
     location: "Richardson",
     industry: "WebDev",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://thecommuters.io/jobs/frontend"
+    url: "https://www.amazon.jobs/en/jobs/3120158/frontend-engineer-ii-storecraft-team"
   },
   {
     id: 7,
     title: "UI/UX Designer",
-    company: "The Commuters",
+    company: "Amazon",
     role: "Designer",
     location: "Frisco",
     industry: "WebDev",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://thecommuters.io/jobs/uiux"
+    url: "https://www.amazon.jobs/en/jobs/3006884/sap-ui-developer-amazon-leo"
   },
   {
     id: 8,
@@ -86,7 +86,7 @@ export const jobs = [
     industry: "WebDev",
     positionType: "Internship",
     requiresSponsorship: true,
-    url: "https://meta.com/careers/react-intern"
+    url: "https://www.metacareers.com/jobsearch"
   },
   {
     id: 9,
@@ -97,7 +97,7 @@ export const jobs = [
     industry: "WebDev",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://careers.microsoft.com/ui-engineer"
+    url: "https://apply.careers.microsoft.com/careers?start=0&pid=1970393556623419&sort_by=relevance&filter_profession=design+%26+creative"
   },
   {
     id: 10,
@@ -108,7 +108,7 @@ export const jobs = [
     industry: "WebDev",
     positionType: "Part-time",
     requiresSponsorship: false,
-    url: "https://costco.com/careers/web-designer"
+    url: "phf.tbe.taleo.net/phf02/ats/careers/v2/jobSearch?act=redirectCwsV2&cws=41&org=COSTCO"
   },
 
   {
@@ -120,7 +120,7 @@ export const jobs = [
     industry: "Backend",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://amazon.jobs/backend-engineer"
+    url: "https://amazon.jobs/en/jobs/3111761/software-engineer-i"
   },
   {
     id: 12,
@@ -131,7 +131,7 @@ export const jobs = [
     industry: "Backend",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://careers.microsoft.com/api-developer"
+    url: "https://apply.careers.microsoft.com/careers?start=0&sort_by=solr&filter_profession=software+engineering"
   },
   {
     id: 13,
@@ -142,7 +142,7 @@ export const jobs = [
     industry: "Backend",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://walmart.com/careers/backend-developer"
+    url: "https://careers.walmart.com/us/en/jobs/R-2298852"
   },
   {
     id: 14,
@@ -153,7 +153,7 @@ export const jobs = [
     industry: "Backend",
     positionType: "Internship",
     requiresSponsorship: true,
-    url: "https://meta.com/careers/db-intern"
+    url: "https://www.metacareers.com/profile/job_details/1436181490732782"
   },
   {
     id: 15,
@@ -164,7 +164,7 @@ export const jobs = [
     industry: "Backend",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://costco.com/careers/systems-integration"
+    url: "https://phf.tbe.taleo.net/phf02/ats/careers/v2/viewRequisition?org=COSTCO&cws=41&rid=10265"
   },
 
   {
@@ -176,7 +176,7 @@ export const jobs = [
     industry: "Retail",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://walmart.com/careers/ops-associate"
+    url: "https://careers.walmart.com/us/en/jobs/R-2298852"
   },
   {
     id: 17,
@@ -187,7 +187,7 @@ export const jobs = [
     industry: "Retail",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://costco.com/careers/inventory-analyst"
+    url: "https://phf.tbe.taleo.net/phf02/ats/careers/v2/viewRequisition?org=COSTCO&cws=41&rid=9187"
   },
   {
     id: 18,
@@ -198,7 +198,7 @@ export const jobs = [
     industry: "Retail",
     positionType: "Part-time",
     requiresSponsorship: false,
-    url: "https://7-eleven.com/jobs/customer-service"
+    url: "https://careers.7-eleven.com/job/irving/manager-software-engineering/45445/89048924480"
   },
   {
     id: 19,
@@ -209,18 +209,18 @@ export const jobs = [
     industry: "Retail",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://amazon.jobs/retail-ops"
+    url: "https://amazon.jobs/en/jobs/3134081/application-specific-integrated-circuit-asic-engineer-internship-2026-us"
   },
   {
     id: 20,
     title: "Floor Associate",
     company: "Costco",
     role: "Operations",
-    location: "Richardson",
+    location: "Allen",
     industry: "Retail",
     positionType: "Part-time",
     requiresSponsorship: false,
-    url: "https://costco.com/careers/floor-associate"
+    url: "https://careers.costco.com/jobs/26765?lang=en-us&previousLocale=en-US"
   },
 
   {
@@ -232,7 +232,7 @@ export const jobs = [
     industry: "Marketing",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://meta.com/careers/digital-marketing"
+    url: "https://www.metacareers.com/profile/job_details/843482411723510"
   },
   {
     id: 22,
@@ -243,18 +243,18 @@ export const jobs = [
     industry: "Marketing",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://amazon.jobs/marketing-analyst"
+    url: "https://amazon.jobs/en/jobs/3130343/sr-executive-marketing-manager-gcr-marketing"
   },
   {
     id: 23,
     title: "Content Strategist",
-    company: "The Commuters",
+    company: "Amazon",
     role: "Content Writer",
     location: "Plano",
     industry: "Marketing",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://thecommuters.io/jobs/content-strategist"
+    url: "https://amazon.jobs/en/jobs/3133375/senior-studio-strategy-manager-studio-strategy-ops"
   },
   {
     id: 24,
@@ -265,7 +265,7 @@ export const jobs = [
     industry: "Marketing",
     positionType: "Internship",
     requiresSponsorship: false,
-    url: "https://costco.com/careers/marketing-intern"
+    url: "https://careers.costco.com/jobs/26765?lang=en-us&previousLocale=en-US"
   },
   {
     id: 25,
@@ -276,7 +276,7 @@ export const jobs = [
     industry: "Marketing",
     positionType: "Part-time",
     requiresSponsorship: false,
-    url: "https://walmart.com/careers/social-media-coordinator"
+    url: "https://careers.walmart.com/us/en/jobs/R-2188534"
   },
 
   {
@@ -288,7 +288,7 @@ export const jobs = [
     industry: "WebDev",
     positionType: "Full-time",
     requiresSponsorship: true,
-    url: "https://amazon.jobs/full-stack"
+    url: "https://amazon.jobs/en/jobs/3136213/software-development-engineer-full-stack-developer-ring"
   },
   {
     id: 27,
@@ -299,7 +299,7 @@ export const jobs = [
     industry: "Backend",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://valve.com/jobs/xr-pipeline"
+    url: "https://www.valvesoftware.com/en/?job_cat=hardware"
   },
   {
     id: 28,
@@ -310,7 +310,7 @@ export const jobs = [
     industry: "Backend",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://careers.microsoft.com/backend-cloud"
+    url: "https://apply.careers.microsoft.com/careers?query=cloud&start=0&pid=1970393556630915&sort_by=relevance&filter_profession=software+engineering"
   },
   {
     id: 29,
@@ -321,7 +321,7 @@ export const jobs = [
     industry: "Retail",
     positionType: "Full-time",
     requiresSponsorship: false,
-    url: "https://7-eleven.com/jobs/project-coordinator"
+    url: "https://careers.7-eleven.com/job/irving/manager-software-engineering/45445/89048924480"
   },
   {
     id: 30,
@@ -332,6 +332,6 @@ export const jobs = [
     industry: "Marketing",
     positionType: "Full-time",
     requiresSponsorship: true,
-    url: "https://meta.com/careers/marketing-pm"
+    url: "https://www.metacareers.com/profile/job_details/718366777534609"
   }
 ];

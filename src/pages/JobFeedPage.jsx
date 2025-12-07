@@ -117,17 +117,6 @@ export default function JobFeedPage() {
               <div className="text-sm text-gray-500">
                 Sponsorship: {job.requiresSponsorship ? "Yes" : "No"}
               </div>
-              <div className="mt-2">
-                <a 
-                  href={job.url}
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-500 hover:underline"
-                >
-                  {job.url}
-                </a>
-              </div>
-
                 </div>
                 <button 
                   onClick={() => window.open(job.url, "_blank")}
