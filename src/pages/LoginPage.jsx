@@ -1,22 +1,34 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Logo from "../components/Logo";
+import { setCurrentUser } from "../redux/userSlice";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  
+  const credentials = useSelector((state) => state.users.credentials);
+  const fullNameMap = useSelector((state) => state.users.fullNameMap);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Perform Login Logic
+    // Perform Login Logic using Redux
     if(username !== "" && password !== ""){
-      if (localStorage.getItem(username + "_password") === password) {
-        const fullName = localStorage.getItem(username + "_full_name");
+      const storedPassword = credentials[username];
+      
+      if (storedPassword === password) {
+        const fullName = fullNameMap[username];
 
-        // Current user set in Local Storage
+        // Set current user in Redux (also syncs to localStorage via redux-persist)
+        dispatch(setCurrentUser(fullName));
+        
+        // Keep localStorage for backwards compatibility (optional - can be removed later)
         localStorage.setItem("current_user", fullName);
+        
         navigate('/jobs');
       } else {
         alert("Invalid username or password");

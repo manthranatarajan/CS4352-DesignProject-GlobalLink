@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Logo from "../components/Logo";
+<<<<<<< Updated upstream
+=======
+import { setProfilePicture, removeProfilePicture } from "../redux/imageSlice";
+import { setCurrentUser, setCredentials, setProfile, setFullNameMapping } from "../redux/userSlice";
+import { handleImageUpload } from "../utils/imageUtils";
+>>>>>>> Stashed changes
 
 export default function SignupPage() {
   const [step, setStep] = useState(1);
@@ -70,6 +76,7 @@ export default function SignupPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+<<<<<<< Updated upstream
     // Submit form data logic to local storage or backend
     localStorage.setItem("current_user", formData.firstName + " " + formData.lastName);
 
@@ -77,11 +84,46 @@ export default function SignupPage() {
     localStorage.setItem(formData.username + "_full_name", formData.firstName + " " + formData.lastName);
 
     // Store username and password
+=======
+    const fullName = formData.firstName + " " + formData.lastName;
+    
+    // Save to Redux (automatically persists to localStorage via redux-persist)
+    
+    // 1. Set current user
+    dispatch(setCurrentUser(fullName));
+    
+    // 2. Store credentials (only for new signups)
+>>>>>>> Stashed changes
     if (!isEditMode) {
-      localStorage.setItem(formData.username + "_password", formData.password);
+      dispatch(setCredentials({
+        username: formData.username,
+        password: formData.password
+      }));
     }
+<<<<<<< Updated upstream
+=======
+    
+    // 3. Set full name mapping
+    dispatch(setFullNameMapping({
+      username: formData.username,
+      fullName: fullName
+    }));
+    
+    // 4. Ensure profile picture is saved with the correct key (full name)
+    const currentImageKey = getCurrentUserKey();
+    const finalImageKey = fullName;
+    
+    if (profilePictureBase64) {
+      if (currentImageKey !== finalImageKey) {
+        dispatch(setProfilePicture({
+          userId: finalImageKey,
+          base64Image: profilePictureBase64,
+        }));
+      }
+    }
+>>>>>>> Stashed changes
 
-    // Build a full profile object from the form data
+    // 5. Build and save profile object
     const profile = {
       firstName: formData.firstName,
       lastName: formData.lastName,
@@ -90,36 +132,41 @@ export default function SignupPage() {
       state: formData.state,
       zip: formData.zip,
       age: formData.age,
-      // work
       company: formData.company,
       title: formData.title,
       startDate: formData.startDate,
       endDate: formData.endDate,
-      // education
       university: formData.university,
       major: formData.major,
       eduStartDate: formData.eduStartDate,
       eduEndDate: formData.eduEndDate,
-      // citizenship
       country: formData.country,
       visaType: formData.visaType,
       seekingWorkAuth: formData.seekingWorkAuth,
-      // additional
       aboutMe: formData.aboutMe,
       projects: formData.projects,
       certifications: formData.certifications,
-      // profile picture (store filename if available)
       profilePictureName: formData.profilePicture ? formData.profilePicture.name : null
     };
 
-    // Save profile under username_profile so the search picks it up, and also under the username key for UserProfile compatibility
+    dispatch(setProfile({
+      fullName: fullName,
+      profile: profile
+    }));
+    
+    // Keep localStorage for backwards compatibility (optional - can be removed later)
+    localStorage.setItem("current_user", fullName);
+    localStorage.setItem(formData.username + "_full_name", fullName);
+    if (!isEditMode) {
+      localStorage.setItem(formData.username + "_password", formData.password);
+    }
     try {
-      localStorage.setItem(formData.firstName + " " + formData.lastName + "_profile", JSON.stringify(profile));
+      localStorage.setItem(fullName + "_profile", JSON.stringify(profile));
     } catch (err) {
       console.warn('Failed to save profile to localStorage', err);
     }
 
-    console.log("Form submitted:", formData);
+    console.log("Form submitted to Redux:", formData);
     
     if (isEditMode) {
       alert("Profile updated!");
