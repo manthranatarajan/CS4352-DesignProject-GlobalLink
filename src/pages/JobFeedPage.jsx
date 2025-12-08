@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 import SignOutButton from "../components/SignOutButton";
 import { jobs } from "../jobs";
@@ -9,8 +8,6 @@ import { jobs } from "../jobs";
 import BottomNav from "../components/BottomNav";
 
 export default function JobFeedPage() {
-  const navigate = useNavigate();
-
   // to make the following badge work.
   const currentUser = localStorage.getItem("current_user");
 
