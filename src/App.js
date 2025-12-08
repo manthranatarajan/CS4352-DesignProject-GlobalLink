@@ -7,15 +7,13 @@ import JobFeedPage from './pages/JobFeedPage';
 import UserSearch from './pages/UserSearch';  
 import UserProfile from './pages/UserProfile'; 
 import JobPreferences from './pages/JobPreferences';
-<<<<<<< Updated upstream
-import CurrentUserProfile from './pages/CurrentUserProfile'; 
-=======
 import CurrentUserProfile from './pages/CurrentUserProfile';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { setProfilePicture } from './redux/imageSlice';
 import { setCredentials, setProfile, setFullNameMapping } from './redux/userSlice';
 import { loadDefaultAvatars, generateAvatarBase64 } from './utils/avatarGenerator';
-import { TEST_USERS } from './testData'; 
->>>>>>> Stashed changes
+import { TEST_USERS } from './testData';
 
 // Clear Local Storage for testing purposes
 //localStorage.clear();
@@ -187,8 +185,6 @@ localStorage.setItem("Charlie Brown_profile", JSON.stringify({
 }));
 
 function App() {
-<<<<<<< Updated upstream
-=======
   const dispatch = useDispatch();
   const profilePictures = useSelector((state) => state.images.profilePictures);
 
@@ -229,7 +225,6 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependency array - only run once on mount
 
->>>>>>> Stashed changes
   return (
     <BrowserRouter>
       <Routes>

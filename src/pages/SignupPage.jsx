@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Logo from "../components/Logo";
-<<<<<<< Updated upstream
-=======
 import { setProfilePicture, removeProfilePicture } from "../redux/imageSlice";
 import { setCurrentUser, setCredentials, setProfile, setFullNameMapping } from "../redux/userSlice";
 import { handleImageUpload } from "../utils/imageUtils";
->>>>>>> Stashed changes
 
 export default function SignupPage() {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
+  
+  // Get profile picture from Redux
+  const profilePictures = useSelector((state) => state.images.profilePictures);
+  const [profilePictureBase64, setProfilePictureBase64] = useState(null);
+  const [imageSize, setImageSize] = useState(null);
+  const [imageError, setImageError] = useState("");
   const isEditMode = location.pathname === '/edit-profile';
   const today = new Date().toISOString().split("T")[0];
   const [isCurrentlyEnrolled, setIsCurrentlyEnrolled] = useState(false);
@@ -73,18 +78,73 @@ export default function SignupPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Helper to get the current user key (either from form data or localStorage)
+  const getCurrentUserKey = () => {
+    if (formData.firstName && formData.lastName) {
+      return formData.firstName + " " + formData.lastName;
+    }
+    return localStorage.getItem("current_user") || "temp_user";
+  };
+
+  // Load profile picture from Redux when component mounts or user changes
+  useEffect(() => {
+    const userKey = getCurrentUserKey();
+    const savedImage = profilePictures[userKey];
+    if (savedImage) {
+      setProfilePictureBase64(savedImage);
+      // Estimate size from base64 string (rough approximation)
+      const sizeInBytes = (savedImage.length * 3) / 4;
+      setImageSize(sizeInBytes);
+    }
+  }, [formData.firstName, formData.lastName, profilePictures]);
+
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      const result = await handleImageUpload(file);
+      
+      if (result.error) {
+        setImageError(result.error);
+        return;
+      }
+
+      // Save to Redux with current user key
+      const userKey = getCurrentUserKey();
+      dispatch(setProfilePicture({
+        userId: userKey,
+        base64Image: result.base64,
+      }));
+
+      setProfilePictureBase64(result.base64);
+      setImageSize(result.size);
+      setImageError("");
+      
+      // Update form data
+      setFormData({ ...formData, profilePicture: file });
+    } catch (error) {
+      setImageError("Failed to process image");
+      console.error("Image processing error:", error);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    const userKey = getCurrentUserKey();
+    
+    // Remove from Redux
+    dispatch(removeProfilePicture(userKey));
+    
+    // Clear local state
+    setFormData({ ...formData, profilePicture: null });
+    setProfilePictureBase64(null);
+    setImageSize(null);
+    setImageError("");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-<<<<<<< Updated upstream
-    // Submit form data logic to local storage or backend
-    localStorage.setItem("current_user", formData.firstName + " " + formData.lastName);
-
-    // Set username to connect with full name
-    localStorage.setItem(formData.username + "_full_name", formData.firstName + " " + formData.lastName);
-
-    // Store username and password
-=======
     const fullName = formData.firstName + " " + formData.lastName;
     
     // Save to Redux (automatically persists to localStorage via redux-persist)
@@ -93,15 +153,12 @@ export default function SignupPage() {
     dispatch(setCurrentUser(fullName));
     
     // 2. Store credentials (only for new signups)
->>>>>>> Stashed changes
     if (!isEditMode) {
       dispatch(setCredentials({
         username: formData.username,
         password: formData.password
       }));
     }
-<<<<<<< Updated upstream
-=======
     
     // 3. Set full name mapping
     dispatch(setFullNameMapping({
@@ -121,7 +178,6 @@ export default function SignupPage() {
         }));
       }
     }
->>>>>>> Stashed changes
 
     // 5. Build and save profile object
     const profile = {
@@ -665,11 +721,38 @@ export default function SignupPage() {
               <input
                 type="file"
                 accept="image/*"
-                onChange={(e) =>
-                  setFormData({ ...formData, profilePicture: e.target.files[0] })
-                }
+                onChange={handleImageChange}
                 className="border p-2 rounded w-full"
               />
+              
+              {/* Image Preview */}
+              {profilePictureBase64 && (
+                <div className="mt-3 relative inline-block">
+                  <img
+                    src={profilePictureBase64}
+                    alt="Profile Preview"
+                    className="w-32 h-32 object-cover rounded-full border-2 border-gray-300"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleRemoveImage}
+                    className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600"
+                    title="Remove image"
+                  >
+                    ×
+                  </button>
+                  {imageSize && (
+                    <p className="text-sm text-gray-600 mt-1">
+                      Size: {(imageSize / 1024).toFixed(2)} KB
+                    </p>
+                  )}
+                </div>
+              )}
+              
+              {/* Error Message */}
+              {imageError && (
+                <p className="text-red-500 text-sm mt-1">{imageError}</p>
+              )}
             </div>
 
             {/* About Me */}
