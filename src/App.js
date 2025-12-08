@@ -184,6 +184,7 @@ function App() {
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/edit-profile" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/jobs" element={<JobFeedPage />} />
         <Route path="/user-search" element={<UserSearch />} />

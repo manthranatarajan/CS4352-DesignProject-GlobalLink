@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import "./UserProfile.css";
 import SignOutButton from "../components/SignOutButton";
+import BottomNav from "../components/BottomNav";
 
 function empty(value) {
   if (value === null || value === undefined || value === "") return true;
@@ -184,6 +185,20 @@ export default function UserProfile() {
 
         <h2 className="user-name">{displayName || 'Unknown'}</h2>
         <SignOutButton className="sign-out-btn" />
+        
+        {/* Edit Profile button - show when viewing own profile */}
+        {friendStatus === 'self' && (
+          <div style={{ marginTop: 8 }}>
+            <button
+              className="add-btn"
+              onClick={() => navigate('/edit-profile')}
+              style={{ backgroundColor: '#818cf8' }} // Indigo-400 to match theme
+            >
+              Edit Profile
+            </button>
+          </div>
+        )}
+
         {/* Add Friend button - show when viewing someone else's profile */}
         {friendStatus !== 'self' && localStorage.getItem('current_user') && (
           <div style={{ marginTop: 8 }}>
@@ -260,6 +275,7 @@ export default function UserProfile() {
           </div>
         </div>
       </div>
+      <BottomNav />
     </div>
   );
 }

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Logo from "../components/Logo";
 
 export default function SignupPage() {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
+  const location = useLocation();
+  const isEditMode = location.pathname === '/edit-profile';
   const today = new Date().toISOString().split("T")[0];
   const [isCurrentlyEnrolled, setIsCurrentlyEnrolled] = useState(false);
   const [isCurrentlyEmployed, setIsCurrentlyEmployed] = useState(false);
@@ -38,6 +40,29 @@ export default function SignupPage() {
     certifications: []
   });
 
+  useEffect(() => {
+    if (isEditMode) {
+      const currentUser = localStorage.getItem("current_user");
+      if (currentUser) {
+        const profileKey = currentUser + "_profile";
+        const savedProfile = localStorage.getItem(profileKey);
+        if (savedProfile) {
+          try {
+            const p = JSON.parse(savedProfile);
+            setFormData(prev => ({
+              ...prev,
+              ...p,
+              // Ensure password is not overwritten with undefined if not present in profile
+              password: prev.password 
+            }));
+          } catch (e) {
+            console.error("Failed to load profile for editing", e);
+          }
+        }
+      }
+    }
+  }, [isEditMode]);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -52,7 +77,9 @@ export default function SignupPage() {
     localStorage.setItem(formData.username + "_full_name", formData.firstName + " " + formData.lastName);
 
     // Store username and password
-    localStorage.setItem(formData.username + "_password", formData.password);
+    if (!isEditMode) {
+      localStorage.setItem(formData.username + "_password", formData.password);
+    }
 
     // Build a full profile object from the form data
     const profile = {
@@ -93,10 +120,14 @@ export default function SignupPage() {
     }
 
     console.log("Form submitted:", formData);
-    alert("Form submitted!");
-    // Remove the on-click function in the submit button and put the navigate here
-    // The on-click remove the on-submit functionality
-    navigate('/job-preferences');
+    
+    if (isEditMode) {
+      alert("Profile updated!");
+      navigate('/current-user-profile');
+    } else {
+      alert("Account created!");
+      navigate('/job-preferences');
+    }
   };
 
   // Ensure input fields aren't empty
@@ -104,7 +135,7 @@ export default function SignupPage() {
     (formData.firstName || "").trim() !== "" &&
     (formData.lastName || "").trim() !== "" &&
     (formData.username || "").trim() !== "" &&
-    (formData.password || "").trim() !== "" &&
+    (isEditMode || (formData.password || "").trim() !== "") && // Password optional in edit mode
     (formData.city || "").trim() !== "" &&
     (formData.state || "").trim() !== "" &&
     (formData.zip || "").trim() !== "" &&
@@ -126,14 +157,12 @@ export default function SignupPage() {
     <div className="min-h-screen relative bg-white py-12 px-6 flex flex-col items-center">
       {/* Background blobs */}
       <div className="fixed -top-40 -left-40 w-[700px] h-[700px] rounded-full bg-green-100 opacity-90 filter blur-[6px] blob-animation" />
-      <div className="fixed -bottom-48 -right-48 w-[700px] h-[700px] rounded-full bg-green-100 opacity-90 filter blur-[6px] blob-animation" />
-
       {/* Logo and title */}
       <div className="relative z-10 w-full max-w-4xl mb-8">
         <div className="flex items-center gap-3 mb-8">
           <div className="logobox">
             <Logo className="w-[200px] mb-2" />
-            <div className="logobox-text text-sm -mt-1 text-gray-700">Sign up</div>
+            <div className="logobox-text text-sm -mt-1 text-gray-700">{isEditMode ? "Edit Profile" : "Sign up"}</div>
           </div>
         </div>
 

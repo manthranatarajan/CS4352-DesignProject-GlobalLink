@@ -6,6 +6,8 @@ import { jobs } from "../jobs";
 
 // changed the jobs to a separate file, called jobs.js
 
+import BottomNav from "../components/BottomNav";
+
 export default function JobFeedPage() {
   const navigate = useNavigate();
 
@@ -131,23 +133,7 @@ export default function JobFeedPage() {
         </div>
 
         {/* Bottom Navigation */}
-        <div className="fixed bottom-8 left-6 right-6 flex justify-between gap-4 z-20">
-          <button className="flex-1 bg-indigo-400 hover:bg-indigo-500 text-white py-4 rounded-full text-lg shadow-lg transition-colors">
-            Feed
-          </button>
-          <button
-            onClick={() => navigate("/user-search")}
-            className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-4 rounded-full text-lg shadow-lg transition-colors"
-          >
-            Search
-          </button>
-          <button
-            onClick={() => navigate("/current-user-profile")}
-            className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-4 rounded-full text-lg shadow-lg transition-colors"
-          >
-            Profile
-          </button>
-        </div>
+        <BottomNav />
       </div>
     </div>
   );

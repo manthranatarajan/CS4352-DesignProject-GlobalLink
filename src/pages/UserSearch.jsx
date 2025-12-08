@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./UserSearch.css";
 import Logo from "../components/Logo";
 import SignOutButton from "../components/SignOutButton";
+import BottomNav from "../components/BottomNav";
 
 export default function UserSearch() {
   const [query, setQuery] = useState("");
@@ -96,6 +97,7 @@ export default function UserSearch() {
           </div>
         ))}
       </div>
+      <BottomNav />
     </div>
   );
 }
