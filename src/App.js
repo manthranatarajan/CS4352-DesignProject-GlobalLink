@@ -7,7 +7,13 @@ import JobFeedPage from './pages/JobFeedPage';
 import UserSearch from './pages/UserSearch';  
 import UserProfile from './pages/UserProfile'; 
 import JobPreferences from './pages/JobPreferences';
-import CurrentUserProfile from './pages/CurrentUserProfile'; 
+import CurrentUserProfile from './pages/CurrentUserProfile';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { setProfilePicture } from './redux/imageSlice';
+import { setCredentials, setProfile, setFullNameMapping } from './redux/userSlice';
+import { loadDefaultAvatars, generateAvatarBase64 } from './utils/avatarGenerator';
+import { TEST_USERS } from './testData';
 
 // Clear Local Storage for testing purposes
 //localStorage.clear();
@@ -179,6 +185,46 @@ localStorage.setItem("Charlie Brown_profile", JSON.stringify({
 }));
 
 function App() {
+  const dispatch = useDispatch();
+  const profilePictures = useSelector((state) => state.images.profilePictures);
+
+  // Load test users and avatars into Redux on mount
+  useEffect(() => {
+    // Load test users into Redux
+    TEST_USERS.forEach(user => {
+      // Set credentials
+      dispatch(setCredentials({
+        username: user.username,
+        password: user.password
+      }));
+      
+      // Set profile
+      dispatch(setProfile({
+        fullName: user.fullName,
+        profile: user.profile
+      }));
+      
+      // Set full name mapping
+      dispatch(setFullNameMapping({
+        username: user.username,
+        fullName: user.fullName
+      }));
+      
+      // Generate avatar
+      const avatarBase64 = generateAvatarBase64(user.fullName, 400);
+      dispatch(setProfilePicture({
+        userId: user.fullName,
+        base64Image: avatarBase64,
+      }));
+    });
+    
+    // Load default avatars for fake users from users.json
+    loadDefaultAvatars(dispatch, setProfilePicture);
+    
+    console.log('Test users and avatars loaded into Redux');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty dependency array - only run once on mount
+
   return (
     <BrowserRouter>
       <Routes>
